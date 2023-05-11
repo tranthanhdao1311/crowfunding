@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  body {
+    @apply font-primary text-base;
+  }
+}
+
+.quill {
+  @apply border;
+  // border: 1px solid #f1f1f3;
+  border-radius: 10px;
+  padding: 15px 25px;
+  text-align: center;
+  min-height: 320px;
+}
+
+.quill .ql-toolbar.ql-snow {
+  border: none;
+  display: inline-block;
+  @apply bg-text4 bg-opacity-10;
+  border-radius: 10px;
+}
+
+.quill .ql-container.ql-snow {
+  font-size: 14px;
+  border: none;
+}
+
+.ql-editor {
+  @apply font-primary;
+}
+.ql-editor.ql-blank::before {
+  @apply text-text4 text-sm;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+// swiper
+// .swiper-slide {
+//   width: 100px;
+// }
+
+.swiper-slide-thumb-active .gallery img {
+  @apply border-[4px] border-solid border-primaryColor;
+}
+
+// .swiper-slide {
+//   position: relative;
+//   bottom: 0;
+// }
+
+.custom-slide-active {
+}
