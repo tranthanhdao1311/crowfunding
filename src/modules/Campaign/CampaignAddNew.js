@@ -73,7 +73,7 @@ const CampaignAddNew = () => {
   const infoUser = {
     id: user?.id,
     name: user?.name,
-    avtUser: user.avtUser,
+    avtUser: user?.avtUser,
   };
 
   const {
