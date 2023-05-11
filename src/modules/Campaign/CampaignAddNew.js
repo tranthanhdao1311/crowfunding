@@ -8,7 +8,7 @@ import SelectDropdown from "../Dropdown/SelectDropdown";
 import List from "../Dropdown/List";
 import Option from "../Dropdown/Option";
 import TextArea from "../../components/TextArea";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 // import ImageUploader from "quill-image-uploader";
 import "react-quill/dist/quill.snow.css";
 import Search from "../Dropdown/Search";
@@ -227,13 +227,13 @@ const CampaignAddNew = () => {
 
         <FieldInputFull>
           <Label htmlFor="content">Story *</Label>
-          <ReactQuill
+          {/* <ReactQuill
             placeholder="Write your story...."
             modules={modules}
             theme="snow"
             value={content}
             onChange={setContent}
-          />
+          /> */}
         </FieldInputFull>
         <FieldInput>
           <FieldRowInput>
