@@ -108,8 +108,8 @@ const CampaignDetails = () => {
               <p className="text-text3 text-sm">
                 Contribution are not associatied with perks
               </p>
-              {/* <Button className="bg-primaryColor px-11">Continue</Button> */}
-              <PayPalButton
+              <Button className="bg-primaryColor px-11">Continue</Button>
+              {/* <PayPalButton
                 amount={Number(valueAmount)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
@@ -131,7 +131,7 @@ const CampaignDetails = () => {
                 onError={() => {
                   alert("Paypal error");
                 }}
-              />
+              /> */}
             </div>
             <div>
               <CampaignPerk></CampaignPerk>

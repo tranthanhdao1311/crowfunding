@@ -6,3 +6,4 @@
 - Run command `npm start` to start Server
 
   // "start": "nodemon server.js",
+  // "react-paypal-button-v2": "^2.5.0",
