@@ -10,7 +10,7 @@ import Option from "../Dropdown/Option";
 import TextArea from "../../components/TextArea";
 // import ReactQuill from "react-quill";
 // import ImageUploader from "quill-image-uploader";
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 import Search from "../Dropdown/Search";
 import axios from "axios";
 import useOnChange from "../../hooks/useOnChange";
