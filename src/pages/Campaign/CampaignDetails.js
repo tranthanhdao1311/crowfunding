@@ -28,7 +28,7 @@ import useFormatDate from "../../hooks/useFormatDate";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Thumbs, FreeMode } from "swiper";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 const CampaignDetails = () => {
   SwiperCore.use([Autoplay]);
