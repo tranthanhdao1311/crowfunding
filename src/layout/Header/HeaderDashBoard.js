@@ -27,7 +27,7 @@ const HeaderDashBoard = () => {
           >
             <img
               className="w-[40px] h-[40px] sm:w-[52px] sm:h-[52px]"
-              src="/logo.png"
+              src="/Logo.png"
               alt=""
             />
           </Link>
