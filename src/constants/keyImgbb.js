@@ -1,1 +1,1 @@
-export const keyImgbb = "f8d4f7023f84db95a79029e246325863";
+export const keyImgbb = "982da71d4d29978dd6290bdec7b685d9";
