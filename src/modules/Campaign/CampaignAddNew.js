@@ -141,10 +141,10 @@ const CampaignAddNew = () => {
   };
 
   const [arrImg, setArrImg] = useState([]);
-  console.log(arrImg);
   const handleSetValueImg = (name, value) => {
     setValue(name, value);
     setArrImg([...arrImg, getValues(name)]);
+    console.log(name, value);
   };
 
   const handleCreateCampaign = async (values) => {

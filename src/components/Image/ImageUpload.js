@@ -3,6 +3,7 @@ import {} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useState } from "react";
+import { keyImgbb } from "./../../../src/constants/keyImgbb";
 
 const ImageUpload = ({ name, id, onChange, className }) => {
   const [imageUrl, setImageUrl] = useState("");
@@ -15,7 +16,7 @@ const ImageUpload = ({ name, id, onChange, className }) => {
     bodyFormData.append("image", file);
     const response = await axios({
       method: "post",
-      url: "https://api.imgbb.com/1/upload?key=f8d4f7023f84db95a79029e246325863",
+      url: `https://api.imgbb.com/1/upload?key=${keyImgbb}`,
       data: bodyFormData,
       headers: {
         "Content-Type": "multipart/form-data",
