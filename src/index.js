@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/configureStore";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -16,6 +17,7 @@ root.render(
   <Provider store={store}>
     <App />
     <ToastContainer></ToastContainer>
+    <ScrollToTop></ScrollToTop>
   </Provider>
 );
 
