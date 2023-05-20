@@ -7,9 +7,11 @@ import Heading from "../../components/common/Heading";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { apiCampaigns } from "../../constants/api";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const [data, setData] = useState([]);
 
@@ -19,11 +21,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://localhost:4001/campaigns");
+      const response = await axios.get(apiCampaigns, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken} `,
+        },
+      });
       setData(response.data);
     }
     fetchData();
-  }, []);
+  }, [accessToken]);
 
   return (
     <div className="w-full">

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { authLogoutUser } from "../../store/auth/auth-slice";
 import { setToggleSideBar } from "../../store/campaign/slice";
+import { restoreDark, setDarkMode } from "../../store/darkmode/darkmode-slice";
+import "../../index.scss";
 
 const SideBar = () => {
   const user = useSelector((state) => state.auth.user);
@@ -20,10 +22,19 @@ const SideBar = () => {
   //     : "w-11 h-11 flex justify-center text-iconColor items-center";
   const active = ({ isActive }) =>
     isActive
-      ? "bg-primaryColor2 text-primaryColor gap-x-3 md:gap-x-0 flex  items-center md:justify-center text-iconColor py-3 px-4 md:w-[48px] md:h-[48px] md:p-0 rounded-none md:rounded-xl"
-      : "bg-white flex items-center md:justify-center gap-x-3 md:gap-x-0 text-iconColor py-3 px-4 md:w-[48px] md:h-[48px] md:p-0";
+      ? "bg-primaryColor2 dark:bg-darkStroke text-primaryColor gap-x-3 md:gap-x-0 flex  items-center md:justify-center text-iconColor py-3 px-4 md:w-[48px] md:h-[48px] md:p-0 rounded-none md:rounded-xl"
+      : "bg-white dark:bg-darkSecondary flex items-center md:justify-center gap-x-3 md:gap-x-0 text-iconColor py-3 px-4 md:w-[48px] md:h-[48px] md:p-0";
 
   const { toggleSideBar } = useSelector((state) => state.campaign);
+  const { dark } = useSelector((state) => state.darkMode);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", dark);
+  }, [dark]);
+
+  const handleChangeMode = () => {
+    dispatch(setDarkMode(!dark));
+  };
 
   return (
     <div
@@ -31,9 +42,14 @@ const SideBar = () => {
         toggleSideBar
           ? "w-full block absolute md:relative shadow-lg md:px-0 animate-translateCustomActive z-50"
           : "hidden"
-      } md:inline-block max-h-[749px]  md:w-[76px] shrink-0 bg-white shadow-customBoxShadow pt-4  md:rounded-3xl`}
+      } md:inline-block max-h-[749px] md:w-[76px] shrink-0 bg-white 
+      
+      dark:bg-darkSecondary shadow-customBoxShadow dark:shadow-none pt-4  md:rounded-3xl`}
     >
-      <div className="py-10 md:px-4 flex flex-col gap-y-8 md:gap-y-40">
+      <div
+        className={`
+       py-10 md:px-4 flex flex-col gap-y-8 `}
+      >
         <div className="flex flex-col gap-y-8 cursor-pointer ">
           <NavLink
             to="/"
@@ -234,7 +250,10 @@ const SideBar = () => {
             </div>
           )}
         </div>
-        <div className="md:w-[48px] md:h-[48px] flex items-center md:justify-center cursor-pointer text-iconColor px-4 py-3 md:p-0 gap-x-3 md:gap-x-0">
+        <div
+          onClick={() => handleChangeMode()}
+          className="md:w-[48px] md:h-[48px] flex items-center md:justify-center cursor-pointer text-iconColor px-4 py-3 md:p-0 gap-x-3 md:gap-x-0"
+        >
           <svg
             width="24"
             height="24"

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowResult } from "../../store/campaign/slice";
+import { apiCampaigns } from "../../constants/api";
 
 const ResultsCampaignSearch = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const ResultsCampaignSearch = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:4001/campaigns");
+        const response = await axios.get(apiCampaigns);
         const item = response.data.filter((item) =>
           item.title.toLowerCase().includes(value.toLowerCase())
         );

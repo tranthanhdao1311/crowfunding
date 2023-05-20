@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Heading from "../../components/common/Heading";
 import CampaignGrid from "../../modules/Campaign/CampaignGrid";
 import CampaignItem from "../../modules/Campaign/CampaignItem";
+import { apiCampaigns } from "../../constants/api";
 
 const Category = () => {
   const params = useParams();
@@ -11,7 +12,7 @@ const Category = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://localhost:4001/campaigns");
+      const response = await axios.get(apiCampaigns);
       const item = response.data.filter((item) => item.category?.name === name);
       setData(item);
     }

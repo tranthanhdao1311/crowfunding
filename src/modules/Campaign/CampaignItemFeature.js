@@ -20,9 +20,9 @@ const CampainItemFeature = ({ data }) => {
     <>
       <div className="flex-1">
         <div className="w-full flex flex-col  gap-y-4 lg:flex-row lg:items-center lg:gap-x-7 mb-[40px]">
-          <div className="w-full  sm:max-w-[583px] h-auto">
+          <div className="w-full h-[330px] sm:max-w-[583px] ">
             <img
-              className="w-full h-auto rounded-3xl object-cover"
+              className="w-full h-full rounded-3xl object-cover"
               srcSet={data.imageCampaign}
               alt={data.imageCampaign}
             />
@@ -51,7 +51,7 @@ const CampainItemFeature = ({ data }) => {
             <div className="flex flex-col gap-y-4">
               <CampaignTitle
                 to={`/campaign/${data.title}`}
-                className="text-text1 font-bold text-xl"
+                className="text-text1 dark:text-white font-bold text-xl"
               >
                 {data.title}
               </CampaignTitle>
@@ -67,7 +67,7 @@ const CampainItemFeature = ({ data }) => {
             </div>
             <div className="flex justify-between items-center">
               <div>
-                <span className="block text-text2 pb-1 font-bold text-xl">
+                <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
                   {formatCurrentRaised}
                 </span>
                 <p className="text-text4 font-normal">
@@ -75,13 +75,13 @@ const CampainItemFeature = ({ data }) => {
                 </p>
               </div>
               <div>
-                <span className="block text-text2 pb-1 font-bold text-xl">
+                <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
                   0
                 </span>
                 <span className="text-text4 font-normal">Total backers</span>
               </div>
               <div>
-                <span className="block text-text2 pb-1 font-bold text-xl">
+                <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
                   {daysLeft}
                 </span>
                 <span className="text-text4 font-normal">Days left</span>

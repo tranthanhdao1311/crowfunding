@@ -14,10 +14,13 @@ import { setShowResult, setValueSearch } from "../../store/campaign/slice";
 
 import useDebounce from "../../hooks/useDebounce";
 import axios from "axios";
+import { apiCampaigns } from "../../constants/api";
 
 const DashboardSearch = ({ placeholder = "", type, name }) => {
   const valueSearch = useSelector((state) => state.campaign.valueSearch);
   const showResult = useSelector((state) => state.campaign.showResult);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const { dark } = useSelector((state) => state.darkMode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const debounceValueCustom = useDebounce(valueSearch, 1000);
@@ -35,7 +38,12 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
       if (debounceValueCustom && debounceValueCustom.length > 0) {
         try {
           setLoading(true);
-          const response = await axios.get("http://localhost:4001/campaigns");
+          const response = await axios.get(apiCampaigns, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken} `,
+            },
+          });
           const item = response.data.filter((item) =>
             item.title.toLowerCase().includes(debounceValueCustom.toLowerCase())
           );
@@ -92,15 +100,15 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
         onClickOutside={handleHideResult}
         render={(attrs) => (
           <div
-            className="lg:w-[843px] w-[458px] max-h-[600px] transition-all flex flex-col overflow-hidden gap-y-5 mt-2  pb-6 bg-white rounded-2xl border  z-40 cursor-pointer"
+            className="lg:w-[843px] w-[458px] max-h-[600px] transition-all  bg-white dark:bg-darkSoft flex flex-col overflow-hidden gap-y-5 mt-2  pb-6   rounded-2xl border  z-40 cursor-pointer"
             tabIndex="-1"
             {...attrs}
           >
-            <div className="flex justify-between items-center p-4 pb-2">
+            <div className={`flex justify-between items-center p-4 pb-2  `}>
               {resultsSearch.length > 0 ? (
                 <Link
                   to={`/searchResults/${valueSearch}`}
-                  className="text-text1 font-medium text-sm underline"
+                  className="text-text1 font-medium text-sm underline "
                 >
                   See all {resultsSearch.length} fundraisier
                 </Link>
@@ -115,7 +123,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
               ></FontAwesomeIcon>
             </div>
 
-            <ul className="flex flex-col ">
+            <ul className="flex flex-col dark:bg-darkBg">
               {loading && (
                 <FontAwesomeIcon
                   className="animate-spin"
@@ -147,7 +155,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
           </div>
         )}
       >
-        <div className="bg-white flex items-center  gap-x-4 h-[40px] md:h-[58px] p-2 shadow-customBoxShadow rounded-full ">
+        <div className="bg-white dark:bg-darkSecondary flex items-center  gap-x-4 h-[40px] md:h-[58px] p-2 shadow-customBoxShadow dark:shadow-none rounded-full ">
           <label className="flex-1">
             <input
               className="outline-none w-full placeholder:text-text4 text-xs md:text-sm font-normal p-2 bg-transparent"

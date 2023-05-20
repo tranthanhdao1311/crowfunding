@@ -8,9 +8,11 @@ import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { apiCampaigns } from "../../constants/api";
 
 const Campaign = () => {
   const user = useSelector((state) => state.auth.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const [data, setData] = useState([]);
 
@@ -19,11 +21,16 @@ const Campaign = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://localhost:4001/campaigns");
+      const response = await axios.get(apiCampaigns, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken} `,
+        },
+      });
       setData(response.data);
     }
     fetchData();
-  }, []);
+  }, [accessToken]);
 
   const [itemCampaign, setItemCampaign] = useState(3);
 
@@ -46,7 +53,7 @@ const Campaign = () => {
           </Link>
 
           <div className="flex flex-col gap-2">
-            <h1 className="text-text1 text-lg sm:text-xl font-semibold leading-5">
+            <h1 className="text-text1 dark:text-white text-lg sm:text-xl font-semibold leading-5">
               Create Your Campaign
             </h1>
             <span className="text-text3font-normal leading-5 text-xs sm:text-sm">

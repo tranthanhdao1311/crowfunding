@@ -28,6 +28,7 @@ import useFormatDate from "../../hooks/useFormatDate";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Thumbs, FreeMode } from "swiper";
+import { apiCampaigns } from "../../constants/api";
 // import { PayPalButton } from "react-paypal-button-v2";
 
 const CampaignDetails = () => {
@@ -51,7 +52,7 @@ const CampaignDetails = () => {
   const [detailPost, setDetailPost] = useState({});
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://localhost:4001/campaigns");
+      const response = await axios.get(apiCampaigns);
       const post = response.data.find((post) => post.title === title);
       setDetailPost(post);
     }

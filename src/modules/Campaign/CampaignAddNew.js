@@ -22,6 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FieldInput from "../../components/FieldInput";
 import FieldRowInput from "../../components/FieldRowInput";
 import FieldInputFull from "../../components/FieldInputFull";
+import { apiCampaigns } from "../../constants/api";
 
 const modules = {
   toolbar: [
@@ -144,12 +145,11 @@ const CampaignAddNew = () => {
   const handleSetValueImg = (name, value) => {
     setValue(name, value);
     setArrImg([...arrImg, getValues(name)]);
-    console.log(name, value);
   };
 
   const handleCreateCampaign = async (values) => {
     try {
-      await axios.post("http://localhost:4001/campaigns", {
+      await axios.post(apiCampaigns, {
         ...values,
         content,
         arrImage: arrImg,

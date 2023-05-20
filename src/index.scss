@@ -7,6 +7,15 @@
   }
 }
 
+/* Kiểu cho chế độ tối */
+
+.dark {
+  @apply bg-darkBg;
+  color: #ffffff;
+}
+
+/* Kiểu cho chế độ sáng */
+
 .quill {
   @apply border;
   // border: 1px solid #f1f1f3;

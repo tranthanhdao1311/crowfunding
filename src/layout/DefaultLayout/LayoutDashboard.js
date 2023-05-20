@@ -5,9 +5,14 @@ import HeaderDashBoard from "../Header/HeaderDashBoard";
 
 const LayoutDashboard = ({ children }) => {
   const showResult = useSelector((state) => state.campaign.showResult);
+  const dark = useSelector((state) => state.darkMode.dark);
 
   return (
-    <div className="relative w-full max-w-[1600px] my-0 mx-auto p-10 bg-liteBg ">
+    <div
+      className={` ${
+        dark ? "dark" : "light"
+      } relative w-full max-w-[1600px] my-0 mx-auto p-10 bg-liteBg `}
+    >
       <HeaderDashBoard></HeaderDashBoard>
       <div className=" relative flex gap-x-10">
         <SideBar></SideBar>

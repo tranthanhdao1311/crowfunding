@@ -20,9 +20,10 @@ const Input = ({
       <div className={` relative flex items-center `}>
         <input
           id={id}
+          autoComplete="off"
           className={`${
             children ? "pr-12" : "pr-6"
-          } w-full bg-white dark:bg-darkStroke dark:text-white dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl ${
+          } w-full bg-white dark:bg-darkSecondary dark:text-white dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl ${
             error ? "border-error text-error dark:border-error font-medium" : ""
           } ${className}`}
           type={type}

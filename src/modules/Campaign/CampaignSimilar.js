@@ -3,12 +3,13 @@ import Heading from "../../components/common/Heading";
 import CampaignGrid from "./CampaignGrid";
 import CampaignItem from "./CampaignItem";
 import axios from "axios";
+import { apiCampaigns } from "../../constants/api";
 
 const CampaignSimilar = ({ data }) => {
   const [campaign, setCampaign] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("http://localhost:4001/campaigns");
+      const response = await axios.get(apiCampaigns);
       const item = response.data.filter((item) => item.category?.name === data);
       setCampaign(item);
     }
