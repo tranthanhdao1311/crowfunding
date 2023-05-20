@@ -6,7 +6,7 @@ import ErrorComponent from "../../components/common/ErrorComponent";
 const HeaderAuth = () => {
   return (
     <Link to="/" className="inline-block">
-      <img srcSet="/logo.png 2x" alt="" />
+      <img srcSet="/Logo.png 2x" alt="" />
     </Link>
   );
 };
