@@ -131,7 +131,9 @@ const HeaderDashBoard = () => {
                 />
                 <div>
                   <p className="text-text3 font-semibold text-sm">Wellcome,</p>
-                  <p className="text-base text-text1 font-bold">{user.name}</p>
+                  <p className="text-base text-text1 dark:text-white whitespace-nowrap font-bold">
+                    {user.name}
+                  </p>
                 </div>
               </div>
             </Link>

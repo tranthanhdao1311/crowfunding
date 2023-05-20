@@ -15,22 +15,22 @@ const Campaign = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
 
   const [data, setData] = useState([]);
-
+  //  {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${accessToken} `,
+  //   },
+  // }
   const newData =
     user && user.id && data.filter((item) => item.infoUser.id === user.id);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(apiCampaigns, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken} `,
-        },
-      });
+      const response = await axios.get(apiCampaigns);
       setData(response.data);
     }
     fetchData();
-  }, [accessToken]);
+  }, []);
 
   const [itemCampaign, setItemCampaign] = useState(3);
 
@@ -38,6 +38,8 @@ const Campaign = () => {
     const increCampaign = itemCampaign + 1;
     setItemCampaign(increCampaign);
   };
+
+  if (!user) return;
 
   return (
     <div className="flex-1">

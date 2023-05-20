@@ -11,7 +11,7 @@ const SelectDropdown = ({ placeholder = "", control, children }) => {
         control={control}
         onClick={handleToggleDropdown}
         name="category"
-        className="w-full relative cursor-pointer flex justify-between bg-white dark:bg-darkStroke dark:text-white dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none px-6 py-4 leading-5 text-sm rounded-xl"
+        className="w-full relative cursor-pointer flex justify-between bg-white dark:bg-darkBg dark:text-text4 dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none px-6 py-4 leading-5 text-sm rounded-xl"
       >
         <span>{placeholder}</span>
         <span>

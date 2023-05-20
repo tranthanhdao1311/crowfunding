@@ -65,7 +65,7 @@ const schema = yup.object().shape({
   startDate: yup.string().required("Please select start date"),
   endDate: yup.string().required("Please select end date"),
   // content: yup.string().required("Please enter your content"),
-  imageCampaign: yup.string().required("File is required"),
+  // imageCampaign: yup.string().required("File is required"),
   // goal: yup.string().min(0).integer().required("Please enter your goal"),
 });
 
@@ -89,11 +89,8 @@ const CampaignAddNew = () => {
       title: "",
       category: {},
       desc: "",
-      raisedAmount: "",
       goal: "",
-      amountPrefilled: "",
       video: "",
-      campaignEndMethod: "",
       country: "",
       startDate: "",
       endDate: "",
@@ -130,7 +127,6 @@ const CampaignAddNew = () => {
 
   const [labelCate, setLabelCate] = useState("");
   const handleClickOptionCate = (value) => {
-    console.log(value);
     setValue("category", value);
     setLabelCate(value.name);
   };
@@ -179,7 +175,7 @@ const CampaignAddNew = () => {
   };
 
   return (
-    <div className=" bg-white rounded-xl md:py-10 md:px-[66px]">
+    <div className=" bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
       <div className="text-center mb-10">
         <h1 className=" sm:w-auto text-text2 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
           Start a Campaign 🚀
