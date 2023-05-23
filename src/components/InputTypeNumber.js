@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
+import { toast } from "react-toastify";
 
-const Input = ({
+const InputTypeNumber = ({
   type,
   id,
   name,
@@ -12,13 +13,20 @@ const Input = ({
   onChange,
   error,
   className,
+  ...props
 }) => {
   const { field } = useController({ name, control });
+  const handleInputChange = (e) => {
+    let inputValue = e.target.value;
+    const numericValue = inputValue.replace(/\D/g, ""); // Loại bỏ các ký tự không phải số
+    field.onChange(numericValue);
+  };
 
   return (
     <div className="relative">
       <div className={` relative flex items-center `}>
         <input
+          {...field}
           id={id}
           autoComplete="off"
           className={`${
@@ -28,8 +36,9 @@ const Input = ({
           } ${className}`}
           type={type}
           placeholder={placeholder}
-          onChange={() => {}}
-          {...field}
+          value={field.value}
+          onChange={handleInputChange}
+          //   onBlur={handleInputBlur}
         />
         {children}
       </div>
@@ -42,11 +51,11 @@ const Input = ({
   );
 };
 
-Input.propTypes = {
+InputTypeNumber.propTypes = {
   children: PropTypes.node,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
 };
 
-export default Input;
+export default InputTypeNumber;

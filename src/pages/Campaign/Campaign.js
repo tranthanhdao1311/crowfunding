@@ -39,8 +39,6 @@ const Campaign = () => {
     setItemCampaign(increCampaign);
   };
 
-  if (!user) return;
-
   return (
     <div className="flex-1">
       <div className="flex items-center justify-between mb-10">

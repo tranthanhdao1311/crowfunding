@@ -26,15 +26,20 @@ export default function* handleAuthRegister(action) {
 function* handleAuthLogin({ payload }) {
   try {
     const response = yield call(requestAuthLogin, payload);
+
     if (response.data) {
       saveToken(response.data.accessToken, response.data.refreshToken);
       yield call(handleAuthFetchMe, { payload: response.data.accessToken });
+      toast.success("Đăng nhập thành công!");
     }
   } catch (error) {
     const response = error.response.data;
+    console.log(error);
+    if (error.response.status === 401) {
+      toast.error("Tài khoản chưa được đăng kí!");
+    }
     if (response.statusCode === 403) {
       toast.error(response.error.message);
-      return;
     }
   }
 }

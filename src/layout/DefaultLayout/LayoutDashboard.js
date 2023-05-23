@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SideBar from "../../components/SideBar/SideBar";
 import HeaderDashBoard from "../Header/HeaderDashBoard";
 
-const LayoutDashboard = ({ children }) => {
+const LayoutDashboard = React.memo(({ children }) => {
   const showResult = useSelector((state) => state.campaign.showResult);
   const dark = useSelector((state) => state.darkMode.dark);
 
@@ -27,6 +27,6 @@ const LayoutDashboard = ({ children }) => {
       ></div>
     </div>
   );
-};
+});
 
 export default LayoutDashboard;

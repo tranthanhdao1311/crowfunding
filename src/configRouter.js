@@ -1,9 +1,10 @@
 import { lazy } from "react";
-import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
 import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
-import Category from "./pages/Category/Category";
+import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn/SignIn"));
+const AddPerkCampaign = lazy(() => import("./pages/Campaign/AddPerkCampaign"));
+const Category = lazy(() => import("./pages/Category/Category"));
 const SignUp = lazy(() => import("./pages/auth/SignUp/SignUp"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const Campaign = lazy(() => import("./pages/Campaign/Campaign"));
@@ -23,31 +24,31 @@ const WithDraw = lazy(() => import("./pages/WithDraw/WithDraw"));
 const publicRouter = [
   { path: "/sign-up", component: SignUp, layout: DefaultLayoutAuth },
   { path: "/sign-in", component: SignIn, layout: DefaultLayoutAuth },
-  { path: "/", component: Dashboard, layout: LayoutDashboard },
-  { path: "/campaign", component: Campaign, layout: LayoutDashboard },
-  { path: "/category/:name", component: Category, layout: LayoutDashboard },
+  { path: "/", component: Dashboard },
+  { path: "/campaign", component: Campaign },
+  { path: "/category/:name", component: Category },
   {
     path: "/searchResults/:value",
     component: ResultsCampaignSearch,
-    layout: LayoutDashboard,
   },
   {
     path: "/campaign/:title",
     component: CampaignDetails,
-    layout: LayoutDashboard,
+  },
+  {
+    path: "/campaign/addperk/:id",
+    component: AddPerkCampaign,
   },
   {
     path: "/start-campaign",
     component: StartCampaignPage,
-    layout: LayoutDashboard,
   },
-  { path: "/payment", component: Payment, layout: LayoutDashboard },
+  { path: "/payment", component: Payment },
   {
     path: "/ProfileSetting",
     component: ProfileSetting,
-    layout: LayoutDashboard,
   },
-  { path: "/WithDraw", component: WithDraw, layout: LayoutDashboard },
+  { path: "/WithDraw", component: WithDraw },
 ];
 
 export { publicRouter };

@@ -23,6 +23,8 @@ import FieldInput from "../../components/FieldInput";
 import FieldRowInput from "../../components/FieldRowInput";
 import FieldInputFull from "../../components/FieldInputFull";
 import { apiCampaigns } from "../../constants/api";
+import RequiredAuthPage from "../Auth/RequiredAuthPage";
+import SignIn from "../../pages/auth/SignIn/SignIn";
 
 const modules = {
   toolbar: [
@@ -94,6 +96,7 @@ const CampaignAddNew = () => {
       country: "",
       startDate: "",
       endDate: "",
+      perk: [],
     },
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -236,16 +239,19 @@ const CampaignAddNew = () => {
             <Label htmlFor="imageCampaign">Image</Label>
             <div className="flex gap-x-3">
               <ImageUpload
+                className="w-[200px] h-[200px]"
                 onChange={handleSetValueImg}
                 name="imageCampaign"
                 id="imageCampaign"
               ></ImageUpload>
               <ImageUpload
+                className="w-[200px] h-[200px]"
                 onChange={handleSetValueImg}
                 name="imageCampaign1"
                 id="imageCampaign1"
               ></ImageUpload>
               <ImageUpload
+                className="w-[200px] h-[200px]"
                 onChange={handleSetValueImg}
                 name="imageCampaign2"
                 id="imageCampaign2"
@@ -278,6 +284,7 @@ const CampaignAddNew = () => {
               Place Youtube or Vimeo Video URL
             </span>
           </FieldRowInput>
+
           <FieldRowInput>
             <Dropdown control={control} id="country" name="country">
               <Label htmlFor="country">Country</Label>

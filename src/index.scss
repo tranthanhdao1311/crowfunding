@@ -62,5 +62,62 @@
 //   bottom: 0;
 // }
 
-.custom-slide-active {
+.loading {
+  width: 100%;
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+// skeleton
+.skeleton {
+  background-color: #eee;
+  background-image: linear-gradient(110deg, #4a6ea9, 3B995F);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: -200%;
+  }
+}
+// #eae1e1 8%,
+//     #fffafa 18%,
+//     #e4e4e4 33%
+
+// .react-datepicker__input-container {
+//   width: 100%;
+//   padding: 10px 20px;
+//   border: 1px solid #ccc;
+// }
+#monthYear {
+  width: 100%;
+  padding: 13px 23px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 10px;
+
+  font-family: "Epilogue", "sans-serif";
+  font-size: 14px;
+}
+
+.dark #monthYear {
+  background-color: #13131a;
+  border: 1px solid #3a3a43;
+}
+.dark .react-datepicker {
+  background-color: #13131a;
+  color: white;
+}
+
+.react-datepicker .react-datepicker__triangle {
+  position: absolute;
+  left: -12px !important;
+  top: 165px !important;
+}
+
+.dark .react-datepicker__triangle {
+  display: none;
 }

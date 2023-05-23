@@ -25,6 +25,7 @@ export const requestAuthFetchMe = (token) => {
 
 export const requestAuthRefreshToken = (token) => {
   if (!token) return;
+  console.log(token);
   return axios.post(apiToken, {
     refreshToken: token,
   });

@@ -6,14 +6,13 @@ import { setToggleSideBar } from "../../store/campaign/slice";
 import { restoreDark, setDarkMode } from "../../store/darkmode/darkmode-slice";
 import "../../index.scss";
 
-const SideBar = () => {
+const SideBar = React.memo(() => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(authLogoutUser());
-    navigate("/sign-in");
   };
 
   // const active = ({ isActive }) =>
@@ -271,6 +270,6 @@ const SideBar = () => {
       </div>
     </div>
   );
-};
+});
 
 export default SideBar;

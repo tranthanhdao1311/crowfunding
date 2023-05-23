@@ -50,6 +50,7 @@ const CampaignDetails = () => {
   const param = useParams();
   const { title } = param;
   const [detailPost, setDetailPost] = useState({});
+  console.log(detailPost);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(apiCampaigns);

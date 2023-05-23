@@ -28,7 +28,7 @@ const ImageUpload = ({ name, id, onChange, className }) => {
   };
   return (
     <label
-      className={`relative w-[200px] overflow-hidden flex justify-center items-center h-[200px] border border-dashed rounded-lg cursor-pointer ${className}`}
+      className={`relative overflow-hidden flex justify-center items-center  border border-dashed rounded-lg cursor-pointer ${className}`}
     >
       <input
         name={name}

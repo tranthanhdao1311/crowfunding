@@ -100,15 +100,19 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
         onClickOutside={handleHideResult}
         render={(attrs) => (
           <div
-            className="lg:w-[843px] w-[458px] max-h-[600px] transition-all  bg-white dark:bg-darkSoft flex flex-col overflow-hidden gap-y-5 mt-2  pb-6   rounded-2xl border  z-40 cursor-pointer"
+            className={`${
+              dark ? "dark" : ""
+            } lg:w-[843px] w-[458px] max-h-[600px] transition-all  bg-white dark:bg-darkStroke flex flex-col overflow-hidden gap-y-5 mt-2  pb-6   rounded-2xl   z-40 cursor-pointer  `}
             tabIndex="-1"
             {...attrs}
           >
-            <div className={`flex justify-between items-center p-4 pb-2  `}>
+            <div
+              className={`flex rounded-2xl justify-between items-center p-4 pb-2 dark:bg-darkSoft  `}
+            >
               {resultsSearch.length > 0 ? (
                 <Link
                   to={`/searchResults/${valueSearch}`}
-                  className="text-text1 font-medium text-sm underline "
+                  className="text-text1 dark:text-white font-medium text-sm underline "
                 >
                   See all {resultsSearch.length} fundraisier
                 </Link>
@@ -123,7 +127,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
               ></FontAwesomeIcon>
             </div>
 
-            <ul className="flex flex-col dark:bg-darkBg">
+            <ul className={`${dark ? "dark" : ""} flex flex-col bg-white`}>
               {loading && (
                 <FontAwesomeIcon
                   className="animate-spin"
@@ -131,7 +135,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
                 ></FontAwesomeIcon>
               )}
               {!loading && resultsSearch.length === 0 ? (
-                <li className="w-full font-normal  text-sm text-text1 flex items-center gap-x-5 px-4 py-2  transition-all ">
+                <li className="w-full font-normal  text-sm text-text1 dark:text-white  flex items-center gap-x-5 px-4 py-2  transition-all ">
                   No results found
                 </li>
               ) : (
@@ -143,7 +147,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
                     <div className="flex flex-col gap-y-1">
                       <Link
                         to={`/campaign/${item.title}`}
-                        className="font-normal text-sm leading-5 text-text1 "
+                        className="font-normal text-sm leading-5 text-text1 dark:text-white "
                       >
                         {item.title}
                       </Link>

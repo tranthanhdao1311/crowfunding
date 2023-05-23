@@ -28,7 +28,7 @@ const ProfileSetting = () => {
     console.log(values);
   };
   return (
-    <div className="w-full bg-white rounded-xl md:py-10 md:px-[66px]">
+    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
       <div className="mb-8">
         <Heading className="text-2xl mb-1">Account Information</Heading>
         <p className="font-normal text-text3 text-sm">

@@ -13,21 +13,21 @@ const Payment = () => {
         select either Paypal or Payoneer{" "}
       </p>
       <div className="grid grid-cols-1 md:grid-cols-[repeat(2,minmax(0,1fr))] md:space-x-10">
-        <div className="bg-white shadow-lg flex flex-col justify-center items-center mb-5 md:mb-0  pt-[35px] px-6 pb-6 rounded-2xl w-full">
+        <div className="bg-white dark:bg-darkSecondary shadow-lg flex flex-col justify-center items-center mb-5 md:mb-0  pt-[35px] px-6 pb-6 rounded-2xl w-full">
           <img srcSet="SeekPng1@2x.png 2x" alt="" className="mb-10" />
           <p className="mb-6 text-sm text-text3">
             Get paid directly via Paypal.
           </p>
-          <Button className="w-full bg-secondaryColor2 text-secondaryColor">
+          <Button className="w-full bg-secondaryColor2 dark:bg-secondaryColor  text-secondaryColor dark:text-white">
             Connect
           </Button>
         </div>
-        <div className="bg-white shadow-lg flex flex-col justify-center items-center pt-[35px] px-6 pb-6 rounded-2xl w-full">
+        <div className="bg-white dark:bg-darkSecondary shadow-lg flex flex-col justify-center items-center pt-[35px] px-6 pb-6 rounded-2xl w-full">
           <img srcSet="SeekPng1.png 2x" alt="" className="mb-10" />
           <p className="mb-6 text-sm text-text3">
             Get paid worldwide your Work.
           </p>
-          <Button className="w-full text-secondaryColor bg-secondaryColor2">
+          <Button className="w-full text-secondaryColor dark:bg-secondaryColor dark:text-white  bg-secondaryColor2">
             Connect
           </Button>
         </div>

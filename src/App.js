@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useEffect } from "react";
+import React, { Fragment, Suspense, startTransition, useEffect } from "react";
 import { publicRouter } from "./configRouter";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
@@ -10,6 +10,12 @@ import "swiper/scss";
 import "swiper/scss/autoplay";
 import "swiper/css/thumbs";
 import "swiper/css/navigation";
+import "./index.scss";
+import { createLogger } from "redux-logger";
+import SignUp from "./pages/auth/SignUp/SignUp";
+import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 // const customStyles = {
 //   content: {},
@@ -21,6 +27,7 @@ Modal.defaultStyles = {};
 
 function App() {
   const user = useSelector((state) => state.auth.user);
+  const dark = useSelector((state) => state.darkMode.dark);
   const dispatch = useDispatch();
   useEffect(() => {
     if (user && user.id) {
@@ -45,26 +52,44 @@ function App() {
         <Routes>
           {publicRouter.map((route, index) => {
             const Page = route.component;
-            let Layout = DefaultLayoutAuth;
+            let Layout = LayoutDashboard;
+
             if (route.layout) {
               Layout = route.layout;
             } else if (route.layout === null) {
               Layout = Fragment;
             }
-
             return (
               <Route
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
-                    <Page></Page>
-                  </Layout>
+                  route.layout === DefaultLayoutAuth ? (
+                    <Suspense>
+                      <Layout>
+                        <Page></Page>
+                      </Layout>
+                    </Suspense>
+                  ) : (
+                    <Layout>
+                      <Suspense
+                        fallback={
+                          <div className={`${dark ? "dark" : ""} loading`}>
+                            <FontAwesomeIcon
+                              className="animate-spin"
+                              icon={faSpinner}
+                            ></FontAwesomeIcon>
+                          </div>
+                        }
+                      >
+                        <Page />
+                      </Suspense>
+                    </Layout>
+                  )
                 }
               ></Route>
             );
           })}
-          {/* <Route path="/sign-up" element={<SignUp></SignUp>}></Route> */}
         </Routes>
       </Router>
     </Suspense>

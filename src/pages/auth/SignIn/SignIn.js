@@ -38,7 +38,7 @@ const SignIn = () => {
 
   const dispatch = useDispatch();
 
-  const handleBtnSignUp = (values) => {
+  const handleBtnSignIn = (values) => {
     dispatch(authLogin(values));
   };
 
@@ -52,7 +52,7 @@ const SignIn = () => {
         </Link>
       </p>
       <ButtonGoogle className="mb-3" text="Sign in with Google"></ButtonGoogle>
-      <form onSubmit={handleSubmit(handleBtnSignUp)}>
+      <form onSubmit={handleSubmit(handleBtnSignIn)}>
         <Field>
           <Label htmlFor="email">Email *</Label>
           <Input
