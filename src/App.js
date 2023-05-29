@@ -47,7 +47,7 @@ function App() {
   }, [user]);
 
   return (
-    <Suspense>
+    <Suspense fallback="">
       <Router>
         <Routes>
           {publicRouter.map((route, index) => {
