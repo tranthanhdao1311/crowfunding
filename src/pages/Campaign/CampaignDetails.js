@@ -29,7 +29,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Thumbs, FreeMode } from "swiper";
 import { apiCampaigns } from "../../constants/api";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 const CampaignDetails = () => {
   SwiperCore.use([Autoplay]);
@@ -114,7 +114,7 @@ const CampaignDetails = () => {
                 Contribution are not associatied with perks
               </p>
               <Button className="bg-primaryColor px-11">Continue</Button>
-              <PayPalButton
+              {/* <PayPalButton
                 amount={Number(valueAmount)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
@@ -136,7 +136,7 @@ const CampaignDetails = () => {
                 onError={() => {
                   alert("Paypal error");
                 }}
-              />
+              /> */}
             </div>
             <div>
               {detailPost.perk?.length > 0 &&

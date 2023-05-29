@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../../components/Button/Button";
 import useFormatRaised from "../../hooks/useFormatRaised";
 import Checkbox from "../../components/Checkbox";
 import { useForm } from "react-hook-form";
@@ -97,19 +96,19 @@ const ContributionSummury = ({ data }) => {
         >
           Gửi thanh toán
         </Button> */}
-        {/* <PayPalButton
+        <PayPalButton
           amount={Number(usdAmount.toFixed(2))}
           // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
           onSuccess={(details, data) => {
             alert("Transaction completed by " + details.payer.name.given_name);
 
             // OPTIONAL: Call your server to save the transaction
-            return fetch("/paypal-transaction-complete", {
-              method: "post",
-              body: JSON.stringify({
-                orderId: data.orderID,
-              }),
-            });
+            // return fetch("/paypal-transaction-complete", {
+            //   method: "post",
+            //   body: JSON.stringify({
+            //     orderId: data.orderID,
+            //   }),
+            // });
           }}
           options={{
             clientId:
@@ -118,7 +117,7 @@ const ContributionSummury = ({ data }) => {
           onError={() => {
             alert("Paypal error");
           }}
-        /> */}
+        />
       </div>
     </div>
   );
