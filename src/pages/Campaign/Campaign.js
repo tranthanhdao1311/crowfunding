@@ -24,6 +24,11 @@ const Campaign = () => {
   const newData =
     user && user.id && data.filter((item) => item.infoUser.id === user.id);
 
+  const handleDeletePost = (postId) => {
+    // Xóa bài viết với postId tương ứng
+    const updatedPosts = data.filter((post) => post.id !== postId);
+    setData(updatedPosts);
+  };
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(apiCampaigns);
@@ -83,6 +88,7 @@ const Campaign = () => {
             .slice(0, itemCampaign)
             .map((item) => (
               <CampainItemFeature
+                onDeletePost={handleDeletePost}
                 key={item.id}
                 data={item}
               ></CampainItemFeature>

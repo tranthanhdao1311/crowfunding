@@ -8,8 +8,8 @@ const useFormatRaised = (data) => {
 
   useEffect(() => {
     async function fetchData() {
-      const goal = Number(data?.goal);
-      const currentRaised = 24000000;
+      const goal = Number(data);
+      const currentRaised = 902000000;
       const formatCurrentRaised1 = currentRaised.toLocaleString("vi-VN", {
         style: "currency",
         currency: "VND",
@@ -26,7 +26,7 @@ const useFormatRaised = (data) => {
       setPercent(percentGoal);
     }
     fetchData();
-  }, [data?.goal]);
+  }, [data]);
 
   return {
     percent,

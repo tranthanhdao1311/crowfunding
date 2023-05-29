@@ -5,7 +5,9 @@ import CampaignTitle from "./CampaignTitle";
 import useFormatRaised from "../../hooks/useFormatRaised";
 
 const CampaignItem = ({ data }) => {
-  const { percent, formatNumber, formatCurrentRaised } = useFormatRaised(data);
+  const { percent, formatNumber, formatCurrentRaised } = useFormatRaised(
+    data?.goal
+  );
   if (!data) return null;
   return (
     <div className="w-full flex flex-col gap-y-4 rounded-2xl bg-white shadow-item">
@@ -34,12 +36,12 @@ const CampaignItem = ({ data }) => {
                 fill="#808191"
               />
             </svg>
-            <Link
-              to={`/category/${data.category?.name}`}
+            <p
+              // to={`/category/${data.category?.name}`}
               className="font-medium text-xs text-text3"
             >
               {data.category?.name}
-            </Link>
+            </p>
           </Link>
           <div className="flex flex-col gap-y-1">
             <CampaignTitle

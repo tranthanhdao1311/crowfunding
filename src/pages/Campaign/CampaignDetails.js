@@ -29,15 +29,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Thumbs, FreeMode } from "swiper";
 import { apiCampaigns } from "../../constants/api";
-// import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalButton } from "react-paypal-button-v2";
 
 const CampaignDetails = () => {
   SwiperCore.use([Autoplay]);
 
   const showModal = useSelector((state) => state.campaign.showModal);
+  // const showResult = useSelector((state) => state.campaign.setShowResult);
   const dispatch = useDispatch();
-  dispatch(setShowResult(false));
-  const { control } = useForm({ mode: "onChange" });
+  useEffect(() => {
+    dispatch(setShowResult(false));
+  }, [dispatch]);
+  const { control } = useForm();
 
   const handleClickProject = () => {
     dispatch(setShowModal(!showModal));
@@ -50,7 +53,6 @@ const CampaignDetails = () => {
   const param = useParams();
   const { title } = param;
   const [detailPost, setDetailPost] = useState({});
-  console.log(detailPost);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(apiCampaigns);
@@ -60,8 +62,9 @@ const CampaignDetails = () => {
     fetchData();
   }, [title]);
 
-  const { formatCurrentRaised, percent, formatNumber } =
-    useFormatRaised(detailPost);
+  const { formatCurrentRaised, percent, formatNumber } = useFormatRaised(
+    detailPost?.goal
+  );
 
   const { daysLeft } = useFormatDate(detailPost);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -111,7 +114,7 @@ const CampaignDetails = () => {
                 Contribution are not associatied with perks
               </p>
               <Button className="bg-primaryColor px-11">Continue</Button>
-              {/* <PayPalButton
+              <PayPalButton
                 amount={Number(valueAmount)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
@@ -133,12 +136,17 @@ const CampaignDetails = () => {
                 onError={() => {
                   alert("Paypal error");
                 }}
-              /> */}
+              />
             </div>
             <div>
-              <CampaignPerk></CampaignPerk>
-              <CampaignPerk></CampaignPerk>
-              <CampaignPerk></CampaignPerk>
+              {detailPost.perk?.length > 0 &&
+                detailPost?.perk.map((item) => (
+                  <CampaignPerk
+                    key={item.id}
+                    data={item}
+                    campaignData={detailPost}
+                  ></CampaignPerk>
+                ))}
             </div>
           </div>
         </ReactModal>
@@ -204,12 +212,12 @@ const CampaignDetails = () => {
               onSwiper={setThumbsSwiper}
               className="mt-6"
             >
-              {detailPost.video && (
+              {detailPost?.video && (
                 <SwiperSlide>
                   <div className="gallery">
                     <img
                       className="w-full h-[100px] border cursor-pointer"
-                      src={detailPost.imageCampaign}
+                      src={detailPost?.imageCampaign}
                       alt=""
                     />
                   </div>
@@ -234,10 +242,10 @@ const CampaignDetails = () => {
                 <div className="flex gap-x-2">
                   <FontAwesomeIcon icon={faFolder}></FontAwesomeIcon>
                   <Link
-                    to={`/category/${detailPost.category?.name}`}
+                    to={`/category/${detailPost?.category?.name}`}
                     className="text-sm"
                   >
-                    {detailPost.category?.name}
+                    {detailPost?.category?.name}
                   </Link>
                 </div>
                 <div className="flex gap-x-4">
@@ -247,9 +255,9 @@ const CampaignDetails = () => {
                 </div>
               </div>
               <div className="mb-6">
-                <Heading className="mb-0">{detailPost.title}</Heading>
+                <Heading className="mb-0">{detailPost?.title}</Heading>
                 <p className="text-text3 text-sm font-normal">
-                  {detailPost.desc}
+                  {detailPost?.desc}
                 </p>
               </div>
               <div className="mb-6 flex gap-x-5 items-center">
@@ -290,7 +298,7 @@ const CampaignDetails = () => {
                     </span>
                     <span className="w-[6px] h-[6px] bg-text3 rounded-full"></span>
                     <span className="text-text3 text-sm">
-                      {detailPost.country}
+                      {detailPost?.country}
                     </span>
                   </div>
                 </div>
@@ -303,7 +311,8 @@ const CampaignDetails = () => {
               <div className="py-3 pr-3">
                 <div className="w-full h-[5px] bg-[#efefef] rounded-sm ">
                   <div
-                    className={`w-[${percent}%] h-[5px] bg-primaryColor rounded-sm`}
+                    style={{ width: `${percent}%` }}
+                    className={` h-[5px] bg-primaryColor rounded-sm`}
                   ></div>
                 </div>
               </div>
@@ -345,7 +354,7 @@ const CampaignDetails = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-[1170px]">
+      <div className="max-w-[1170px] ">
         <div className="border-y-[1px] mt-24 ">
           <div className="flex justify-between py-5  items-center">
             <ul className="flex cursor-pointer gap-x-14 text-text3 text-sm">
@@ -359,15 +368,17 @@ const CampaignDetails = () => {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between">
+        <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between relative">
           <div className="lg:w-[60%]">
             <p>STORY</p>
             <div className="w-full">{parse(detailPost.content || "")}</div>
           </div>
-          <div className="w-full lg:w-[40%] flex flex-col gap-y-14">
-            <div className="w-full">
-              <p className="text-text1 text-lg mb-3">Support</p>
-              <div className=" py-5 px-6 flex flex-col gap-y-5 shadow-lg rounded-xl">
+          <div className="w-full lg:w-[40%] flex flex-col sticky top-0 left-0 h-[700px]">
+            <p className="text-text1 text-base font-semibold my-3  ">
+              Chọn một tùy chọn
+            </p>
+            <div className="w-full  overflow-y-auto">
+              <div className=" py-5 px-6 flex flex-col gap-y-5 hover:shadow-lg border hover:border-[#ccc] rounded-xl mb-8">
                 <p className="text-center text-text3 font-medium text-xl">
                   Pledge without reward
                 </p>
@@ -387,12 +398,16 @@ const CampaignDetails = () => {
                 </div>
                 <Button className="bg-secondaryColor w-full">Continue</Button>
               </div>
+              {detailPost.perk?.length > 0 &&
+                detailPost?.perk.map((item) => (
+                  <CampaignPerk
+                    key={item.id}
+                    data={item}
+                    campaignData={detailPost}
+                  ></CampaignPerk>
+                ))}
             </div>
-            <div className="w-full">
-              <CampaignPerk></CampaignPerk>
-              <CampaignPerk></CampaignPerk>
-              <CampaignPerk></CampaignPerk>
-            </div>
+            <div className="w-full"></div>
           </div>
         </div>
       </div>

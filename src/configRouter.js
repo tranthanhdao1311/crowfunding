@@ -1,9 +1,11 @@
 import { lazy } from "react";
 import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
+import PaymentCampaign from "./pages/Payment/PaymentCampaign";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn/SignIn"));
 const AddPerkCampaign = lazy(() => import("./pages/Campaign/AddPerkCampaign"));
+const UpdateCampaign = lazy(() => import("./pages/Campaign/UpdateCampaign"));
 const Category = lazy(() => import("./pages/Category/Category"));
 const SignUp = lazy(() => import("./pages/auth/SignUp/SignUp"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
@@ -40,10 +42,15 @@ const publicRouter = [
     component: AddPerkCampaign,
   },
   {
+    path: "/campaign/update/:id",
+    component: UpdateCampaign,
+  },
+  {
     path: "/start-campaign",
     component: StartCampaignPage,
   },
   { path: "/payment", component: Payment },
+  { path: "/campaign/:title/payment/:id", component: PaymentCampaign },
   {
     path: "/ProfileSetting",
     component: ProfileSetting,

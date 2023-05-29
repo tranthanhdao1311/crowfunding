@@ -15,12 +15,16 @@ const CampaignSimilar = ({ data }) => {
     }
     fetchData();
   }, [data]);
+
+  if (!data) return null;
   return (
     <div className="mt-7">
       <Heading>You also may be interested in</Heading>
       <CampaignGrid>
         {campaign.length > 0 &&
-          campaign.map((item) => <CampaignItem data={item}></CampaignItem>)}
+          campaign.map((item) => (
+            <CampaignItem key={item.id} data={item}></CampaignItem>
+          ))}
       </CampaignGrid>
     </div>
   );

@@ -20,6 +20,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 
 const schema = yup.object().shape({
   title: yup.string().required("Vui lòng nhập tiêu đề"),
@@ -31,7 +32,7 @@ const schema = yup.object().shape({
     .max(9999, "Số lương không vượt quá 10000")
     .nullable(),
   desc: yup.string().required("Vui lòng nhập mô tả"),
-  image: yup.string().required("Vui lòng chọn hình ảnh"),
+  // image: yup.string().required("Vui lòng chọn hình ảnh"),
   price: yup
     .number()
     .transform((value, originalValue) => {
@@ -39,16 +40,17 @@ const schema = yup.object().shape({
     })
     .min(0)
     .required("Vui lòng nhập giá tiền"),
-  retailPrice: yup
-    .number()
-    .transform((value, originalValue) => {
-      return originalValue.trim() !== "" ? parseInt(originalValue) : undefined;
-    })
-    .min(0)
-    .required("Vui lòng nhập giá bán lẻ"),
+  // retailPrice: yup
+  //   .number()
+  //   .transform((value, originalValue) => {
+  //     return originalValue.trim() !== "" ? parseInt(originalValue) : undefined;
+  //   })
+  //   .min(0)
+  //   .required("Vui lòng nhập giá bán lẻ"),
+  monthYearShip: yup.string(),
 });
 
-const UpdateCampaign = () => {
+const AddPerkCampaign = () => {
   const { id } = useParams();
   const {
     control,
@@ -67,6 +69,7 @@ const UpdateCampaign = () => {
       price: "",
       retailPrice: "",
       monthYearShip: "",
+      id: "",
     },
     resolver: yupResolver(schema),
   });
@@ -111,9 +114,13 @@ const UpdateCampaign = () => {
     getValues(name);
     setFileImg(getValues(name));
   };
-
   const handleUpdateItem = async (values) => {
-    const result = { ...values, image: fileImg, monthYearShip: selectedDate };
+    const result = {
+      ...values,
+      image: fileImg,
+      monthYearShip: selectedDate,
+      id: uuidv4(),
+    };
     try {
       await FetchIdItem(result);
       toast.success("Thêm đặc quyền thành công!");
@@ -201,9 +208,9 @@ const UpdateCampaign = () => {
         </FieldInput>
         <FieldInput>
           <FieldRowInput className={`${dark ? "dark" : ""}`}>
-            <Label htmlFor="monthYear">Dự kiến giao hàng</Label>
+            <Label htmlFor="monthYearShip">Dự kiến giao hàng</Label>
             <DatePicker
-              id="monthYear"
+              id="monthYearShip"
               name="monthYearShip"
               selected={selectedDate}
               onChange={handleDateChange}
@@ -236,4 +243,4 @@ const UpdateCampaign = () => {
   );
 };
 
-export default UpdateCampaign;
+export default AddPerkCampaign;

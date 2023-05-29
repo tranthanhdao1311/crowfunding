@@ -5,7 +5,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { keyImgbb } from "./../../../src/constants/keyImgbb";
 
-const ImageUpload = ({ name, id, onChange, className }) => {
+const ImageUpload = ({ name, id, onChange, className, img }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   const handleSelectImage = async (e) => {
@@ -28,7 +28,7 @@ const ImageUpload = ({ name, id, onChange, className }) => {
   };
   return (
     <label
-      className={`relative overflow-hidden flex justify-center items-center  border border-dashed rounded-lg cursor-pointer ${className}`}
+      className={`relative overflow-hidden flex justify-center items-center  border  cursor-pointer ${className}`}
     >
       <input
         name={name}
@@ -42,13 +42,11 @@ const ImageUpload = ({ name, id, onChange, className }) => {
         icon={faFileImage}
       ></FontAwesomeIcon>
       {/* {imageUrl.map((img) => ( */}
-      {imageUrl && (
-        <img
-          className="w-full h-full object-cover absolute top-0 left-0 "
-          src={imageUrl}
-          alt=""
-        />
-      )}
+      <img
+        className="w-full h-full object-cover absolute top-0 left-0 "
+        src={imageUrl || img}
+        alt=""
+      />
 
       {/* ))} */}
     </label>

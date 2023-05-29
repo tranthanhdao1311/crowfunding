@@ -14,7 +14,6 @@ const Input = ({
   className,
 }) => {
   const { field } = useController({ name, control });
-
   return (
     <div className="relative">
       <div className={` relative flex items-center `}>

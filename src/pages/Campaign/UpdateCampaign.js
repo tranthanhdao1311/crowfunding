@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input";
-import Dropdown from "../Dropdown/Dropdown";
 import Label from "../../components/Label";
-import SelectDropdown from "../Dropdown/SelectDropdown";
-import List from "../Dropdown/List";
-import Option from "../Dropdown/Option";
 import TextArea from "../../components/TextArea";
 import ReactQuill from "react-quill";
 import ImageUploader from "quill-image-uploader";
 import "react-quill/dist/quill.snow.css";
-import Search from "../Dropdown/Search";
 import axios from "axios";
 import useOnChange from "../../hooks/useOnChange";
 import { toast } from "react-toastify";
@@ -22,10 +17,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FieldInput from "../../components/FieldInput";
 import FieldRowInput from "../../components/FieldRowInput";
 import FieldInputFull from "../../components/FieldInputFull";
-import { apiCampaigns } from "../../constants/api";
-import RequiredAuthPage from "../Auth/RequiredAuthPage";
+import { apiCampaigns, apiUrl } from "../../constants/api";
+// import RequiredAuthPage from "../Auth/RequiredAuthPage";
 import SignIn from "../../pages/auth/SignIn/SignIn";
 import { optionCate } from "../../constants/cate";
+import Dropdown from "../../modules/Dropdown/Dropdown";
+import SelectDropdown from "../../modules/Dropdown/SelectDropdown";
+import List from "../../modules/Dropdown/List";
+import Search from "../../modules/Dropdown/Search";
+import Option from "../../modules/Dropdown/Option";
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment/moment";
 
 const modules = {
   toolbar: [
@@ -50,13 +54,8 @@ const schema = yup.object().shape({
   // goal: yup.string().min(0).integer().required("Please enter your goal"),
 });
 
-const CampaignAddNew = () => {
-  const user = useSelector((state) => state.auth.user);
-  const infoUser = {
-    id: user?.id,
-    name: user?.name,
-    avtUser: user?.avtUser,
-  };
+const UpdateCampaign = () => {
+  const { id } = useParams();
 
   const {
     handleSubmit,
@@ -64,22 +63,38 @@ const CampaignAddNew = () => {
     setValue,
     getValues,
     reset,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isSubmitting },
   } = useForm({
-    defaultValues: {
-      title: "",
-      category: {},
-      desc: "",
-      goal: "",
-      video: "",
-      country: "",
-      startDate: "",
-      endDate: "",
-      perk: [],
-    },
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    async function fetchDataById() {
+      try {
+        const response = await axios.get(`${apiUrl}/api/campaigns/${id}`);
+        const startDate = moment(response.data.startDate).format("YYYY-MM-DD");
+        const endDate = moment(response.data.endDate).format("YYYY-MM-DD");
+        const defaultValue = {
+          ...response.data,
+          startDate,
+          endDate,
+        };
+        reset(defaultValue);
+
+        setContent(response.data.content || "");
+        setLabelCate(response.data.category?.name);
+        setLabelCountry(response.data.country);
+        setImg(response.data.arrImage);
+      } catch (error) {}
+    }
+    fetchDataById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [img, setImg] = useState();
+  console.log(img);
+
   const [content, setContent] = useState("");
 
   const [countries, setCountries] = useState([]);
@@ -127,58 +142,41 @@ const CampaignAddNew = () => {
 
   const handleCreateCampaign = async (values) => {
     try {
-      await axios.post(apiCampaigns, {
+      const updateData = {
         ...values,
-        content,
         arrImage: arrImg,
-        infoUser: infoUser,
-      });
-
-      toast.success("Create new campaign successfully");
-      reset({
-        title: "",
-        category: {},
-        desc: "",
-        raisedAmount: "",
-        amountPrefilled: "",
-        video: "",
-        goal: "",
-        campaignEndMethod: "",
-        country: "",
-        startDate: "",
-        endDate: "",
-      });
-      setLabelCountry("");
-      setLabelCate("");
-      setContent("");
+        content,
+      };
+      await axios.put(`${apiUrl}/api/campaigns/${id}`, updateData);
+      toast.success("Cập nhật thành công!");
     } catch (error) {
-      toast.error("Can't not create new campaign");
+      toast.error("Cập nhật thất bại!");
     }
   };
 
   return (
-    <div className=" bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
+    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
       <div className="text-center mb-10">
         <h1 className=" sm:w-auto text-text2 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
-          Start a Campaign 🚀
+          Cập nhật bài viết id: {id}
         </h1>
       </div>
       <form onSubmit={handleSubmit(handleCreateCampaign)}>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="title">Campaign Title *</Label>
+            <Label htmlFor="title">Tiêu đề *</Label>
             <Input
               control={control}
               id="title"
               type="text"
               name="title"
-              placeholder="Write a title"
+              placeholder="Tiêu đề"
             ></Input>
           </FieldRowInput>
           <FieldRowInput>
             <Dropdown control={control} name="category" id="category">
-              <Label htmlFor="category">Select a category *</Label>
-              <SelectDropdown placeholder={labelCate || "Select a category"}>
+              <Label htmlFor="category">Danh mục *</Label>
+              <SelectDropdown placeholder={labelCate || "Chọn danh mục"}>
                 <List>
                   {optionCate.map((item) => (
                     <Option
@@ -195,18 +193,18 @@ const CampaignAddNew = () => {
         </FieldInput>
 
         <FieldInputFull>
-          <Label htmlFor="desc">Short Description *</Label>
+          <Label htmlFor="desc">Mô tả *</Label>
           <TextArea
             control={control}
-            placeholder="Write a short description...."
+            placeholder="Hãy viết mô tả ngắn...."
             name="desc"
           ></TextArea>
         </FieldInputFull>
 
         <FieldInputFull>
-          <Label htmlFor="content">Story *</Label>
+          <Label htmlFor="content">Nội dung *</Label>
           <ReactQuill
-            placeholder="Write your story...."
+            placeholder="Viết câu chuyện của bạn...."
             modules={modules}
             theme="snow"
             value={content}
@@ -215,30 +213,35 @@ const CampaignAddNew = () => {
         </FieldInputFull>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="imageCampaign">Image</Label>
+            <Label htmlFor="imageCampaign">Hình ảnh</Label>
             <div className="flex gap-x-3">
-              <ImageUpload
-                className="w-[200px] h-[200px]"
-                onChange={handleSetValueImg}
-                name="imageCampaign"
-                id="imageCampaign"
-              ></ImageUpload>
-              <ImageUpload
-                className="w-[200px] h-[200px]"
-                onChange={handleSetValueImg}
-                name="imageCampaign1"
-                id="imageCampaign1"
-              ></ImageUpload>
-              <ImageUpload
-                className="w-[200px] h-[200px]"
-                onChange={handleSetValueImg}
-                name="imageCampaign2"
-                id="imageCampaign2"
-              ></ImageUpload>
+              <>
+                <ImageUpload
+                  className="w-[200px] h-[200px]"
+                  onChange={handleSetValueImg}
+                  name="imageCampaign"
+                  id="imageCampaign"
+                  img={img && img[0]}
+                ></ImageUpload>
+                <ImageUpload
+                  className="w-[200px] h-[200px]"
+                  onChange={handleSetValueImg}
+                  name="imageCampaign1"
+                  id="imageCampaign1"
+                  img={img && img[1]}
+                ></ImageUpload>
+                <ImageUpload
+                  className="w-[200px] h-[200px]"
+                  onChange={handleSetValueImg}
+                  name="imageCampaign2"
+                  id="imageCampaign2"
+                  img={img && img[2]}
+                ></ImageUpload>
+              </>
             </div>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="goal">Goal *</Label>
+            <Label htmlFor="goal">Giá *</Label>
             <Input
               control={control}
               id="goal"
@@ -260,18 +263,18 @@ const CampaignAddNew = () => {
               placeholder="Video"
             ></Input>
             <span className="font-normal text-sm text-text3">
-              Place Youtube or Vimeo Video URL
+              Đặt URL video Youtube hoặc Vimeo
             </span>
           </FieldRowInput>
 
           <FieldRowInput>
             <Dropdown control={control} id="country" name="country">
-              <Label htmlFor="country">Country</Label>
-              <SelectDropdown placeholder={labelCountry || "Select a country"}>
+              <Label htmlFor="country">Quốc gia</Label>
+              <SelectDropdown placeholder={labelCountry || "Chọn quốc gia"}>
                 <List>
                   <Search
                     onChange={setFilterCountry}
-                    placeholder={"Search Country..."}
+                    placeholder={"Tìm kiếm quốc gia của bạn..."}
                   ></Search>
                   {countries.length > 0 &&
                     countries.map((item) => (
@@ -292,32 +295,41 @@ const CampaignAddNew = () => {
 
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="startDate">Start Date</Label>
+            <Label htmlFor="startDate">Ngày bắt đầu</Label>
             <Input
               control={control}
               id="startDate"
               type="date"
               name="startDate"
-              placeholder="Start Date"
+              placeholder="Ngày bắt đầu"
             ></Input>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="endDate">End Date</Label>
+            <Label htmlFor="endDate">Ngày kết thúc</Label>
             <Input
               control={control}
               id="endDate"
               type="date"
               name="endDate"
-              placeholder="End Date"
+              placeholder="Ngày kết thúc"
             ></Input>
           </FieldRowInput>
         </FieldInput>
         <div className="text-center">
           <Button
-            className="bg-secondaryColor text-sm md:text-base px-9 mt-6"
+            className={`${
+              isSubmitting ? "pointer-events-none opacity-50" : ""
+            } bg-secondaryColor text-sm md:text-base px-9 mt-6  `}
             type="submit"
           >
-            Submit new campaign
+            {isSubmitting ? (
+              <FontAwesomeIcon
+                className="animate-spin"
+                icon={faSpinner}
+              ></FontAwesomeIcon>
+            ) : (
+              "Cập nhật"
+            )}
           </Button>
         </div>
       </form>
@@ -325,4 +337,4 @@ const CampaignAddNew = () => {
   );
 };
 
-export default CampaignAddNew;
+export default UpdateCampaign;

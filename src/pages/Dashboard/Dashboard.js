@@ -39,20 +39,22 @@ const Dashboard = () => {
       setData(response.data);
     }
     fetchData();
-  }, [accessToken]);
-
-  // if (!firstNewData) return <SkeletonCampaignItem></SkeletonCampaignItem>;
-  // if (!user && !user?.id) return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // lần đầu vào trang web thì hiện thông báo
   useEffect(() => {
     localStorage.setItem("firstAccess", firstAccess);
   }, [firstAccess]);
 
+  const handleDeletePost = (postId) => {
+    // Xóa bài viết với postId tương ứng
+    const updatedPosts = data.filter((post) => post.id !== postId);
+    setData(updatedPosts);
+  };
   const handleAccess = () => {
     dispatch(setFirstAccess(!firstAccess));
   };
-
   return (
     <>
       <div className="w-full">
@@ -66,12 +68,15 @@ const Dashboard = () => {
             )}
           </Link>
         </Heading>
-
-        {newData && newData?.length <= 0 && (
+        {data.length <= 0 && <p>tao chien dich</p>}
+        {data.length > 0 && newData && newData?.length <= 0 && (
           <SkeletonCampaignItem></SkeletonCampaignItem>
         )}
         {user && user.id && firstNewData && (
-          <CampainItemFeature data={firstNewData}></CampainItemFeature>
+          <CampainItemFeature
+            onDeletePost={handleDeletePost}
+            data={firstNewData}
+          ></CampainItemFeature>
         )}
 
         <CampaignPopular></CampaignPopular>
