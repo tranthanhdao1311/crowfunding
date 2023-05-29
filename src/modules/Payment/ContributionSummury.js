@@ -97,7 +97,7 @@ const ContributionSummury = ({ data }) => {
         >
           Gửi thanh toán
         </Button> */}
-        <PayPalButton
+        {/* <PayPalButton
           amount={Number(usdAmount.toFixed(2))}
           // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
           onSuccess={(details, data) => {
@@ -118,7 +118,7 @@ const ContributionSummury = ({ data }) => {
           onError={() => {
             alert("Paypal error");
           }}
-        />
+        /> */}
       </div>
     </div>
   );
