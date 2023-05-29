@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../constants/api";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 const ContributionSummury = ({ data }) => {
   const { formatNumber } = useFormatRaised(data[0].price);
@@ -96,7 +96,7 @@ const ContributionSummury = ({ data }) => {
         >
           Gửi thanh toán
         </Button> */}
-        <PayPalButton
+        {/* <PayPalButton
           amount={Number(usdAmount.toFixed(2))}
           // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
           onSuccess={(details, data) => {
@@ -117,7 +117,7 @@ const ContributionSummury = ({ data }) => {
           onError={() => {
             alert("Paypal error");
           }}
-        />
+        /> */}
       </div>
     </div>
   );
