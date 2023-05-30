@@ -21,7 +21,7 @@ import ReactModal from "react-modal";
 import Label from "../../components/Label";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowModal, setShowResult } from "../../store/campaign/slice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import useFormatRaised from "../../hooks/useFormatRaised";
 import useFormatDate from "../../hooks/useFormatDate";
@@ -29,6 +29,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Thumbs, FreeMode } from "swiper";
 import { apiCampaigns } from "../../constants/api";
+import InputTypeNumber from "../../components/InputTypeNumber";
 // import { PayPalButton } from "react-paypal-button-v2";
 
 const CampaignDetails = () => {
@@ -53,6 +54,7 @@ const CampaignDetails = () => {
   const param = useParams();
   const { title } = param;
   const [detailPost, setDetailPost] = useState({});
+  console.log(detailPost);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(apiCampaigns);
@@ -61,20 +63,28 @@ const CampaignDetails = () => {
     }
     fetchData();
   }, [title]);
-
+  const vntAmount = detailPost?.raisedAmount / 0.000043;
   const { formatCurrentRaised, percent, formatNumber } = useFormatRaised(
-    detailPost?.goal
+    detailPost?.goal,
+    vntAmount
   );
 
   const { daysLeft } = useFormatDate(detailPost);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const [valueAmount, setValueAmount] = useState(0);
+  const [valueAmount, setValueAmount] = useState("");
 
   const handleChangeValueAmount = (e) => {
-    setValueAmount(e.target.value);
+    const numericValue = e.target.value.replace(/\D/g, ""); // Loại bỏ các ký tự không phải số
+    setValueAmount(Number(numericValue));
   };
 
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`payment/${detailPost?.id}`, {
+      state: { detailPost, valueAmount },
+    });
+  };
   return (
     <div className="w-full">
       {showModal && (
@@ -101,8 +111,9 @@ const CampaignDetails = () => {
 
                   <input
                     placeholder="$10"
-                    type="number"
+                    type="text"
                     id="amount"
+                    value={valueAmount}
                     name="amount"
                     onChange={(e) => handleChangeValueAmount(e)}
                     className="w-full bg-white dark:bg-darkStroke dark:text-white dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl"
@@ -113,7 +124,12 @@ const CampaignDetails = () => {
               <p className="text-text3 text-sm">
                 Contribution are not associatied with perks
               </p>
-              <Button className="bg-primaryColor px-11">Continue</Button>
+              <Button
+                onClick={handleNavigate}
+                className="bg-primaryColor px-11"
+              >
+                Continue
+              </Button>
               {/* <PayPalButton
                 amount={Number(valueAmount)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
@@ -368,16 +384,16 @@ const CampaignDetails = () => {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between relative">
+        <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between relative ">
           <div className="lg:w-[60%]">
             <p>STORY</p>
             <div className="w-full">{parse(detailPost.content || "")}</div>
           </div>
-          <div className="w-full lg:w-[40%] flex flex-col sticky top-0 left-0 h-[700px]">
-            <p className="text-text1 text-base font-semibold my-3  ">
+          <div className="w-full lg:w-[40%] flex flex-col sticky top-0  ">
+            <p className="text-text1 text-base font-semibold my-3   ">
               Chọn một tùy chọn
             </p>
-            <div className="w-full  overflow-y-auto">
+            <div className="w-full lg:h-[700px]  lg:overflow-y-auto">
               <div className=" py-5 px-6 flex flex-col gap-y-5 hover:shadow-lg border hover:border-[#ccc] rounded-xl mb-8">
                 <p className="text-center text-text3 font-medium text-xl">
                   Pledge without reward

@@ -60,15 +60,15 @@ const Dashboard = () => {
       <div className="w-full">
         <Heading>
           <Link to="/campaign">
-            Your Campaign{" "}
+            Chiến dịch của bạn{" "}
             {user ? (
               <span className="text-secondaryColor">({newData?.length})</span>
             ) : (
-              "(đăng nhập để xem chiến dịch của bạn)"
+              "(Đăng nhập để xem chiến dịch của bạn)"
             )}
           </Link>
         </Heading>
-        {data.length <= 0 && <p>tao chien dich</p>}
+        {data.length <= 0 && <p>Tạo chiến dịch</p>}
         {data.length > 0 && newData && newData?.length <= 0 && (
           <SkeletonCampaignItem></SkeletonCampaignItem>
         )}

@@ -6,40 +6,33 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../constants/api";
 import { PayPalButton } from "react-paypal-button-v2";
+import Button from "../../components/Button/Button";
 
-const ContributionSummury = ({ data }) => {
-  const { formatNumber } = useFormatRaised(data[0].price);
+const ContributionSummury = ({ data, dataParent, price = 0 }) => {
+  const { formatNumber } = useFormatRaised(data?.price || price);
+
   const { watch, setValue } = useForm();
   const watchAgree = watch("statusAgree");
-
-  const id = data[0].id;
-  const handlePayment = async () => {
-    try {
-      const response = await axios.post(`${apiUrl}/api/create-payment`, id);
-      console.log(response);
-    } catch (error) {
-      console.log(id);
-    }
-  };
   const vndToUsdRate = 0.000043; // Tỷ giá hối đoái từ VND sang USD
-  const vndAmount = data[0].price; // Giá trị VND cần chuyển đổi
+  const vndAmount = data?.price || price; // Giá trị VND cần chuyển đổi
   const usdAmount = vndAmount * vndToUsdRate; // Chuyển đổi sang USD
+
   return (
     <div className="w-[462px] shadow-md bg-white rounded-3xl pt-4 pb-10 px-5">
       <h3 className="mb-6 text-lg font-semibold leading-normal text-text2">
         Tóm tắt đóng góp
       </h3>
       <div className="flex items-center px-5 py-4 mb-4 rounded-xl bg-secondaryColor bg-opacity-5 gap-x-4">
-        {data[0].image && (
+        {data?.image && (
           <img
-            src={data[0].image}
+            src={data?.image}
             alt=""
             className="flex-shrink-0 object-cover rounded w-[89px] h-[70px]"
           />
         )}
 
         <h4 className="text-base font-medium max-w-[200px] whitespace-normal">
-          {data[0].title}
+          {data?.title}
         </h4>
         <span className="ml-auto text-base font-bold">{formatNumber}</span>
       </div>
@@ -101,7 +94,11 @@ const ContributionSummury = ({ data }) => {
           // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
           onSuccess={(details, data) => {
             alert("Transaction completed by " + details.payer.name.given_name);
+            return axios.put(
+              `${apiUrl}/api/campaigns/${dataParent.campaignData.id}/add-amount`,
 
+              { amount: usdAmount }
+            );
             // OPTIONAL: Call your server to save the transaction
             // return fetch("/paypal-transaction-complete", {
             //   method: "post",

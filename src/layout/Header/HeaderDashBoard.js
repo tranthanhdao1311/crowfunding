@@ -59,7 +59,7 @@ const HeaderDashBoard = () => {
               type="button"
               className="basic-2/6 h-[40px] md:hidden sm:h-[52px] bg-secondaryColor opacity-80 px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
             >
-              Start a campaign
+              Bắt đầu chiến dịch
             </Button>
           </Link>
         ) : (
@@ -67,7 +67,7 @@ const HeaderDashBoard = () => {
             <DashboardSearch
               type="text"
               name="search"
-              placeholder="Do fundrise now"
+              placeholder="Tìm kiếm..."
             ></DashboardSearch>
           </div>
         )}
@@ -77,13 +77,13 @@ const HeaderDashBoard = () => {
             <DashboardSearch
               type="text"
               name="search"
-              placeholder="Do fundrise now"
+              placeholder="Tìm kiếm..."
             ></DashboardSearch>
           </div>
         )}
       </div>
       <div className="flex md:gap-x-10 items-center justify-between ">
-        <div className="basic-2/6 hidden lg:flex lg:gap-x-2 lg:items-center cursor-pointer">
+        <div className="basic-2/6 hidden xl:flex lg:gap-x-2 lg:items-center cursor-pointer">
           <svg
             width="20"
             height="12"
@@ -98,7 +98,7 @@ const HeaderDashBoard = () => {
           </svg>
 
           <span className="font-semibold text-base text-text2 whitespace-nowrap">
-            Fundrising for
+            Gây quỹ
           </span>
           <svg
             width="12"
@@ -116,11 +116,11 @@ const HeaderDashBoard = () => {
             type="button"
             className="basic-2/6 h-[40px] hidden md:block sm:h-[52px] bg-secondaryColor opacity-80 px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
           >
-            Start a campaign
+            Bắt đầu chiến dịch
           </Button>
         </Link>
 
-        <div className="basic-2/6 hidden md:block">
+        <div className="basic-2/6 hidden lg:block">
           {user ? (
             <Link to={`/profileSetting`}>
               <div className="flex gap-x-3 items-center">
@@ -130,7 +130,7 @@ const HeaderDashBoard = () => {
                   alt=""
                 />
                 <div>
-                  <p className="text-text3 font-semibold text-sm">Wellcome,</p>
+                  <p className="text-text3 font-semibold text-sm">Xin chào,</p>
                   <p className="text-base text-text1 dark:text-white whitespace-nowrap font-bold">
                     {user.name}
                   </p>
@@ -140,7 +140,7 @@ const HeaderDashBoard = () => {
           ) : (
             <Link to="/sign-in">
               <Button className="text-sm md:text-base bg-primaryColor px-6 whitespace-nowrap">
-                Log In
+                Đăng nhập
               </Button>
             </Link>
           )}

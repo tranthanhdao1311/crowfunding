@@ -6,7 +6,7 @@ import CampaignGrid from "./CampaignGrid";
 const CampaignPopular = () => {
   return (
     <div className="mt-7">
-      <Heading>Popular Campaign</Heading>
+      <Heading>Chiến dịch phổ biến</Heading>
       <CampaignGrid>
         <CampaignItem></CampaignItem>
         <CampaignItem></CampaignItem>

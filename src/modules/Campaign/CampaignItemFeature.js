@@ -16,6 +16,12 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const CampainItemFeature = ({ data, onDeletePost }) => {
+  console.log(data);
+  const vndToUsdRate = 0.000043;
+  const usdAmount = data.raisedAmount;
+  console.log(usdAmount);
+  const vndAmount = usdAmount / vndToUsdRate;
+  console.log(vndAmount);
   const user = useSelector((state) => state.auth.user);
   const { dark } = useSelector((state) => state.darkMode);
   // days left
@@ -24,7 +30,8 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
 
   //  percent goal
   const { formatCurrentRaised, formatNumber, percent } = useFormatRaised(
-    data.goal
+    data.goal,
+    vndAmount
   );
 
   const handleCreatePerk = (id) => {
@@ -160,7 +167,7 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
               </CampaignDesc>
             </div>
             <div>
-              {percent}% of {formatNumber}
+              {percent}% của {formatNumber}
             </div>
             <div className="w-full h-[5px] block bg-[#EFEFEF] rounded-md my-2 overflow-hidden">
               <div
@@ -174,20 +181,20 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
                   {formatCurrentRaised}
                 </span>
                 <p className="text-text4 font-normal">
-                  Raised of <span className="font-medium">{formatNumber}</span>
+                  Trên tổng <span className="font-medium">{formatNumber}</span>
                 </p>
               </div>
               <div>
                 <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
                   0
                 </span>
-                <span className="text-text4 font-normal">Total backers</span>
+                <span className="text-text4 font-normal">Người ủng hộ</span>
               </div>
               <div>
                 <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
                   {daysLeft}
                 </span>
-                <span className="text-text4 font-normal">Days left</span>
+                <span className="text-text4 font-normal">Ngày còn lại</span>
               </div>
             </div>
           </div>

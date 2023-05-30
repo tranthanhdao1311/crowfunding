@@ -19,11 +19,11 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .email("This email already registered ")
-    .required("Please enter your email"),
+    .required("Vui lòng nhập email"),
   password: yup
     .string()
-    .min(8, "Password must be 8 character")
-    .required("Please enter your password"),
+    .min(8, "Mật khẩu phải có 8 ký tự    ")
+    .required("Vui lòng nhập mật khẩu của bạn"),
 });
 const SignIn = () => {
   const {
@@ -44,14 +44,17 @@ const SignIn = () => {
 
   return (
     <div>
-      <HeadingAuth title="Welcome Back!"></HeadingAuth>
+      <HeadingAuth title="Chào mừng bạn trở lại!"></HeadingAuth>
       <p className="text-center text-sm font-normal text-text3 pb-5 lg:pb-7">
-        Dont have an account?
+        Bạn chưa có tài khoản?
         <Link to="/sign-up" className="text-primaryColor ml-1 underline">
-          Sign up
+          Đăng ký
         </Link>
       </p>
-      <ButtonGoogle className="mb-3" text="Sign in with Google"></ButtonGoogle>
+      <ButtonGoogle
+        className="mb-3"
+        text="Đăng nhập bằng Google"
+      ></ButtonGoogle>
       <form onSubmit={handleSubmit(handleBtnSignIn)}>
         <Field>
           <Label htmlFor="email">Email *</Label>
@@ -60,14 +63,14 @@ const SignIn = () => {
             name="email"
             error={errors.email?.message}
             control={control}
-            placeholder="example@gmail.com"
+            placeholder="nguyenvana@gmail.com"
             type="email"
           ></Input>
         </Field>
         <Field>
-          <Label htmlFor="password">Password *</Label>
+          <Label htmlFor="password">Mật khẩu *</Label>
           <InputTogglePassword
-            placeholder="Enter Password"
+            placeholder="Nhập mật khẩu"
             control={control}
             error={errors.password?.message}
           ></InputTogglePassword>
@@ -77,11 +80,11 @@ const SignIn = () => {
           to="/forgot-password"
           className="flex justify-end py-3 text-primaryColor cursor-pointer font-medium text-sm"
         >
-          Forgot password
+          Quên mật khẩu?
         </Link>
 
         <Button type="submit" className="bg-primaryColor w-full lg:mt-3 mt-4">
-          Sign in
+          Đăng nhập
         </Button>
       </form>
     </div>

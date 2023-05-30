@@ -6,7 +6,7 @@ import CampaignItem from "./CampaignItem";
 const CampaignRecent = () => {
   return (
     <div className="mt-7">
-      <Heading>Recent Campaign</Heading>
+      <Heading>Chiến dịch gần đây</Heading>
       <CampaignGrid>
         <CampaignItem></CampaignItem>
         <CampaignItem></CampaignItem>

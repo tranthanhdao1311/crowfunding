@@ -28,11 +28,11 @@ const ProfileSetting = () => {
     console.log(values);
   };
   return (
-    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
+    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 lg:px-[66px]">
       <div className="mb-8">
-        <Heading className="text-2xl mb-1">Account Information</Heading>
+        <Heading className="text-2xl mb-1">Thông tin tài khoản</Heading>
         <p className="font-normal text-text3 text-sm">
-          Update your account information
+          Cập nhật thông tin tài khoản của bạn
         </p>
       </div>
       <form onSubmit={handleSubmit(handleUpdateUser)}>
@@ -46,7 +46,7 @@ const ProfileSetting = () => {
         </FieldInputFull>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="name">User name</Label>
+            <Label htmlFor="name">Họ Tên</Label>
             <Input
               control={control}
               type="text"
@@ -68,7 +68,7 @@ const ProfileSetting = () => {
         </FieldInput>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="new-password">New Password</Label>
+            <Label htmlFor="new-password">Mật khẩu mới</Label>
             <InputTogglePassword
               control={control}
               id="new-password"
@@ -77,7 +77,7 @@ const ProfileSetting = () => {
             ></InputTogglePassword>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="confirm-password">Confirm Password</Label>
+            <Label htmlFor="confirm-password">Xác nhận mật khẩu</Label>
             <InputTogglePassword
               control={control}
               id="confirm-password"
@@ -87,7 +87,7 @@ const ProfileSetting = () => {
         </FieldInput>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="birth">Date of Birth</Label>
+            <Label htmlFor="birth">Ngày sinh</Label>
             <Input
               control={control}
               type="date"
@@ -97,7 +97,7 @@ const ProfileSetting = () => {
             ></Input>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="phone">Mobile Number</Label>
+            <Label htmlFor="phone">Số điện thoại</Label>
             <Input
               control={control}
               type="text"
@@ -111,7 +111,7 @@ const ProfileSetting = () => {
           type="submit"
           className="bg-secondaryColor px-14 block mx-auto mt-10"
         >
-          Update
+          Cập nhật
         </Button>
       </form>
     </div>

@@ -59,24 +59,25 @@ const Campaign = () => {
 
           <div className="flex flex-col gap-2">
             <h1 className="text-text1 dark:text-white text-lg sm:text-xl font-semibold leading-5">
-              Create Your Campaign
+              Tạo chiến dịch của bạn
             </h1>
             <span className="text-text3font-normal leading-5 text-xs sm:text-sm">
-              Jump right into our editor and create your first Virtue campaign!
+              Nhảy ngay vào trình chỉnh sửa của chúng tôi và tạo chiến dịch
+              Virtue đầu tiên của bạn!
             </span>
             <span className="text-primaryColor font-normal leading-5 text-sm">
-              Need any help? Learn More...
+              Bạn có cần giúp gì không? Tìm hiểu thêm...
             </span>
           </div>
         </div>
         <Link to={`/start-campaign`}>
           <Button className="hidden lg:block bg-secondaryColor whitespace-nowrap bg-opacity-20 text-secondaryColor pr-7 pl-7 mr-6">
-            Create campaign
+            Tạo chiến dịch
           </Button>
         </Link>
       </div>
       <Heading>
-        Your Campaign{" "}
+        Chiến dịch của bạn{" "}
         <span className="text-secondaryColor">
           {" "}
           ({newData?.length ? newData.length : 0})
@@ -96,12 +97,12 @@ const Campaign = () => {
       </CampaignGrid>
       {newData?.length === 0 && (
         <span className=" text-text3 text-base">
-          You don't have any campaigns yet.
+          Bạn chưa có bất kỳ chiến dịch nào.
         </span>
       )}
       {!user?.id && (
         <span className="text-text3 text-base">
-          Login and create your campaign
+          Đăng nhập và tạo chiến dịch của bạn.
         </span>
       )}
       {itemCampaign < newData?.length && (
@@ -111,7 +112,7 @@ const Campaign = () => {
             onClick={() => handleSeeMoreCampaign()}
             className="bg-secondaryColor bg-opacity-20 text-secondaryColor px-6 my-6 sm:px-10 sm:my-10"
           >
-            See more
+            Xem thêm...
             <FontAwesomeIcon
               className="ml-2 text-xs"
               icon={faPlus}

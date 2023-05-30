@@ -19,15 +19,15 @@ import { authRegister } from "../../../store/auth/auth-slice";
 import ImageUpload from "../../../components/Image/ImageUpload";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please enter your name"),
+  name: yup.string().required("Vui lòng nhập tên của bạn"),
   email: yup
     .string()
     .email("This email already registered ")
-    .required("Please enter your email"),
+    .required("Vui lòng nhập email"),
   password: yup
     .string()
-    .required("Please enter your password")
-    .min(8, "Password must be 8 character"),
+    .required("Vui lòng nhập mật khẩu")
+    .min(8, "Mật khẩu phải có 8 kí tự"),
 });
 
 const SignUp = () => {
@@ -66,25 +66,25 @@ const SignUp = () => {
 
   return (
     <>
-      <HeadingAuth title="Sign Up"></HeadingAuth>
+      <HeadingAuth title="Đăng ký"></HeadingAuth>
       <p className="text-center text-sm font-normal text-text3 pb-5 lg:pb-7">
-        Already have an account?
+        Bạn đã có tài khoản?
         <Link to="/sign-in" className="text-primaryColor ml-1 underline ">
-          Sign In
+          Đăng nhập
         </Link>
       </p>
       <ButtonGoogle text="Sign up with Google"></ButtonGoogle>
       <p className=" dark:text-white flex justify-center lg:p-3 text-sm font-normal leading-6 text-text2 mt-5 lg:mt-3">
-        Or sign up with email{" "}
+        Hoặc đăng ký với email{" "}
       </p>
       <form onSubmit={handleSubmit(handleBtnSignUp)}>
         <Field>
-          <Label htmlFor="name">Name *</Label>
+          <Label htmlFor="name">Họ tên *</Label>
           <Input
             id="name"
             name="name"
             error={errors.name?.message}
-            placeholder="Ex: Jhon Doe"
+            placeholder="Ví dụ: Nguyễn Văn A"
             type="text"
             control={control}
           ></Input>
@@ -96,7 +96,7 @@ const SignUp = () => {
             name="email"
             id="email"
             error={errors.email?.message}
-            placeholder="example@gmail.com"
+            placeholder="nguyenvana@gmail.com"
             type="email"
             control={control}
             // onChange={() => {}}
@@ -104,20 +104,21 @@ const SignUp = () => {
         </Field>
 
         <Field>
-          <Label htmlFor="password">Password *</Label>
+          <Label htmlFor="password">Mật khẩu *</Label>
           <InputTogglePassword
             error={errors.password?.message}
             id="password"
             control={control}
-            placeholder="Create a password"
+            placeholder="Tạo mật khẩu"
           ></InputTogglePassword>
         </Field>
         <Field>
-          <Label htmlFor="avt-user">Avatar</Label>
+          <Label htmlFor="avt-user">Ảnh đại diện</Label>
           <ImageUpload
             onChange={handleSetValueImg}
             name="avtUser"
             id="avtUser"
+            className="w-[50%] h-[150px]"
           ></ImageUpload>
         </Field>
 
@@ -129,18 +130,18 @@ const SignUp = () => {
           }}
         >
           <p className="h-[56px] font-normal lg:text-sm text-xs  text-text2 dark:text-text3 py-3 lg:pr-5 pr-3 ">
-            I agree to the{" "}
+            Tôi đồng ý với{" "}
             <Link to="/" className="text-secondaryColor underline">
-              Terms of Use
+              Điều khoản sử dụng
             </Link>{" "}
-            and have read and understand the{" "}
+            và đã đọc và hiểu{" "}
             <Link to="/" className="text-secondaryColor underline ">
-              Privacy policy.
+              Chính sách quyền riêng tư.
             </Link>
           </p>
         </Checkbox>
         <Button type="submit" className="bg-primaryColor w-full lg:mt-3 mt-4">
-          Create my account
+          Tạo tài khoản
         </Button>
       </form>
     </>

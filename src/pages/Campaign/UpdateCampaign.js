@@ -155,9 +155,9 @@ const UpdateCampaign = () => {
   };
 
   return (
-    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
+    <div className="w-full bg-white dark:bg-darkBg rounded-xl md:py-10 lg:px-[66px]">
       <div className="text-center mb-10">
-        <h1 className=" sm:w-auto text-text2 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
+        <h1 className=" sm:w-auto text-text2 dark:text-text4 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
           Cập nhật bài viết id: {id}
         </h1>
       </div>

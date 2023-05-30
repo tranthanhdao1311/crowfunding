@@ -114,7 +114,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
                   to={`/searchResults/${valueSearch}`}
                   className="text-text1 dark:text-white font-medium text-sm underline "
                 >
-                  See all {resultsSearch.length} fundraisier
+                  Xem tất cả {resultsSearch.length} chiến dịch
                 </Link>
               ) : (
                 <span className="text-text1 font-medium text-sm underline"></span>
@@ -136,7 +136,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
               )}
               {!loading && resultsSearch.length === 0 ? (
                 <li className="w-full font-normal  text-sm text-text1 dark:text-white  flex items-center gap-x-5 px-4 py-2  transition-all ">
-                  No results found
+                  Không có kết quả tìm kiếm
                 </li>
               ) : (
                 resultsSearch.slice(0, 4).map((item) => (

@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const useFormatRaised = (data) => {
+const useFormatRaised = (dataGoal, dataRaisedAmount) => {
   const [percent, setPercent] = useState(0);
   const [formatNumber, setFomatNumber] = useState(0);
   const [formatCurrentRaised, setFormatCurrentRaised] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
-      const goal = Number(data);
-      const currentRaised = 902000000;
-      const formatCurrentRaised1 = currentRaised.toLocaleString("vi-VN", {
+      const goal = Number(dataGoal);
+      const currentRaised = dataRaisedAmount;
+      const formatCurrentRaised1 = currentRaised?.toLocaleString("vi-VN", {
         style: "currency",
         currency: "VND",
       });
@@ -26,7 +26,7 @@ const useFormatRaised = (data) => {
       setPercent(percentGoal);
     }
     fetchData();
-  }, [data]);
+  }, [dataGoal, dataRaisedAmount]);
 
   return {
     percent,

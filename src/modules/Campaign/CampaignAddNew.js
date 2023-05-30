@@ -70,6 +70,7 @@ const CampaignAddNew = () => {
       title: "",
       category: {},
       desc: "",
+      raisedAmount: 0,
       goal: "",
       video: "",
       country: "",
@@ -134,16 +135,13 @@ const CampaignAddNew = () => {
         infoUser: infoUser,
       });
 
-      toast.success("Create new campaign successfully");
+      toast.success("Tạo chiến dịch thành công!");
       reset({
         title: "",
         category: {},
         desc: "",
-        raisedAmount: "",
-        amountPrefilled: "",
         video: "",
         goal: "",
-        campaignEndMethod: "",
         country: "",
         startDate: "",
         endDate: "",
@@ -157,28 +155,28 @@ const CampaignAddNew = () => {
   };
 
   return (
-    <div className=" bg-white dark:bg-darkBg rounded-xl md:py-10 md:px-[66px]">
+    <div className=" bg-white dark:bg-darkBg rounded-xl lg:py-10 lg:px-[66px] ">
       <div className="text-center mb-10">
         <h1 className=" sm:w-auto text-text2 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
-          Start a Campaign 🚀
+          Bắt đầu một chiến dịch 🚀
         </h1>
       </div>
       <form onSubmit={handleSubmit(handleCreateCampaign)}>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="title">Campaign Title *</Label>
+            <Label htmlFor="title">Tiêu đề chiến dịch *</Label>
             <Input
               control={control}
               id="title"
               type="text"
               name="title"
-              placeholder="Write a title"
+              placeholder="Viết tiêu đề..."
             ></Input>
           </FieldRowInput>
           <FieldRowInput>
             <Dropdown control={control} name="category" id="category">
-              <Label htmlFor="category">Select a category *</Label>
-              <SelectDropdown placeholder={labelCate || "Select a category"}>
+              <Label htmlFor="category">Chọn một danh mục *</Label>
+              <SelectDropdown placeholder={labelCate || "Chọn một danh mục"}>
                 <List>
                   {optionCate.map((item) => (
                     <Option
@@ -195,18 +193,18 @@ const CampaignAddNew = () => {
         </FieldInput>
 
         <FieldInputFull>
-          <Label htmlFor="desc">Short Description *</Label>
+          <Label htmlFor="desc">Mô tả ngắn * *</Label>
           <TextArea
             control={control}
-            placeholder="Write a short description...."
+            placeholder="Viết một mô tả ngắn...."
             name="desc"
           ></TextArea>
         </FieldInputFull>
 
         <FieldInputFull>
-          <Label htmlFor="content">Story *</Label>
+          <Label htmlFor="content">Câu chuyện * *</Label>
           <ReactQuill
-            placeholder="Write your story...."
+            placeholder="Nội dung chiến dịch...."
             modules={modules}
             theme="snow"
             value={content}
@@ -215,7 +213,7 @@ const CampaignAddNew = () => {
         </FieldInputFull>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="imageCampaign">Image</Label>
+            <Label htmlFor="imageCampaign">Hình ảnh</Label>
             <div className="flex gap-x-3">
               <ImageUpload
                 className="w-[200px] h-[200px]"
@@ -238,13 +236,13 @@ const CampaignAddNew = () => {
             </div>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="goal">Goal *</Label>
+            <Label htmlFor="goal">Mục tiêu *</Label>
             <Input
               control={control}
               id="goal"
               type="text"
               name="goal"
-              placeholder="$0.00 USD"
+              placeholder="0 VND"
             ></Input>
           </FieldRowInput>
         </FieldInput>
@@ -260,18 +258,18 @@ const CampaignAddNew = () => {
               placeholder="Video"
             ></Input>
             <span className="font-normal text-sm text-text3">
-              Place Youtube or Vimeo Video URL
+              Đặt URL video Youtube hoặc Vimeo
             </span>
           </FieldRowInput>
 
           <FieldRowInput>
             <Dropdown control={control} id="country" name="country">
-              <Label htmlFor="country">Country</Label>
-              <SelectDropdown placeholder={labelCountry || "Select a country"}>
+              <Label htmlFor="country">Quốc gia</Label>
+              <SelectDropdown placeholder={labelCountry || "Chọn quốc gia"}>
                 <List>
                   <Search
                     onChange={setFilterCountry}
-                    placeholder={"Search Country..."}
+                    placeholder={"Tìm kiếm quốc gia..."}
                   ></Search>
                   {countries.length > 0 &&
                     countries.map((item) => (
@@ -292,23 +290,23 @@ const CampaignAddNew = () => {
 
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="startDate">Start Date</Label>
+            <Label htmlFor="startDate">Ngày bắt đầu</Label>
             <Input
               control={control}
               id="startDate"
               type="date"
               name="startDate"
-              placeholder="Start Date"
+              placeholder="Ngày bắt đầu"
             ></Input>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="endDate">End Date</Label>
+            <Label htmlFor="endDate">Ngày kết thúc</Label>
             <Input
               control={control}
               id="endDate"
               type="date"
               name="endDate"
-              placeholder="End Date"
+              placeholder="Ngày kết thúc"
             ></Input>
           </FieldRowInput>
         </FieldInput>
@@ -317,7 +315,7 @@ const CampaignAddNew = () => {
             className="bg-secondaryColor text-sm md:text-base px-9 mt-6"
             type="submit"
           >
-            Submit new campaign
+            Tạo chiến dịch mới
           </Button>
         </div>
       </form>
