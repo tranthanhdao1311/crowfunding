@@ -26,6 +26,11 @@ import { apiCampaigns } from "../../constants/api";
 import RequiredAuthPage from "../Auth/RequiredAuthPage";
 import SignIn from "../../pages/auth/SignIn/SignIn";
 import { optionCate } from "../../constants/cate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const modules = {
   toolbar: [
@@ -43,8 +48,8 @@ const schema = yup.object().shape({
   desc: yup.string().required("Please enter your desc"),
   category: yup.object().required("Please select category"),
   country: yup.string().required("Please select country"),
-  startDate: yup.string().required("Please select start date"),
-  endDate: yup.string().required("Please select end date"),
+  startDate: yup.string(),
+  endDate: yup.string(),
   // content: yup.string().required("Please enter your content"),
   // imageCampaign: yup.string().required("File is required"),
   // goal: yup.string().min(0).integer().required("Please enter your goal"),
@@ -64,7 +69,7 @@ const CampaignAddNew = () => {
     setValue,
     getValues,
     reset,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isSubmitting },
   } = useForm({
     defaultValues: {
       title: "",
@@ -77,6 +82,7 @@ const CampaignAddNew = () => {
       startDate: "",
       endDate: "",
       perk: [],
+      clickCampaign: 0,
     },
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -126,6 +132,7 @@ const CampaignAddNew = () => {
     setArrImg([...arrImg, getValues(name)]);
   };
 
+  const navigate = useNavigate();
   const handleCreateCampaign = async (values) => {
     try {
       await axios.post(apiCampaigns, {
@@ -133,6 +140,8 @@ const CampaignAddNew = () => {
         content,
         arrImage: arrImg,
         infoUser: infoUser,
+        startDate: selectedStartDate,
+        endDate: selectedEndDate,
       });
 
       toast.success("Tạo chiến dịch thành công!");
@@ -149,11 +158,21 @@ const CampaignAddNew = () => {
       setLabelCountry("");
       setLabelCate("");
       setContent("");
+      navigate(`/campaign`);
     } catch (error) {
       toast.error("Can't not create new campaign");
     }
   };
+  // select date
+  const [selectedStartDate, setSelectedStartDate] = useState();
+  const handleChangeStartDate = (date) => {
+    setSelectedStartDate(date);
+  };
 
+  const [selectedEndDate, setSelectedEndDate] = useState();
+  const handleChangeEndDate = (date) => {
+    setSelectedEndDate(date);
+  };
   return (
     <div className=" bg-white dark:bg-darkBg rounded-xl lg:py-10 lg:px-[66px] ">
       <div className="text-center mb-10">
@@ -193,7 +212,7 @@ const CampaignAddNew = () => {
         </FieldInput>
 
         <FieldInputFull>
-          <Label htmlFor="desc">Mô tả ngắn * *</Label>
+          <Label htmlFor="desc">Mô tả ngắn *</Label>
           <TextArea
             control={control}
             placeholder="Viết một mô tả ngắn...."
@@ -291,31 +310,58 @@ const CampaignAddNew = () => {
         <FieldInput>
           <FieldRowInput>
             <Label htmlFor="startDate">Ngày bắt đầu</Label>
-            <Input
+            <DatePicker
+              autoComplete="off"
+              id="startDate"
+              name="startDate"
+              selected={selectedStartDate}
+              onChange={handleChangeStartDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/MM/yyyy"
+              showFullMonthYearPicker
+            />
+            {/* <Input
               control={control}
               id="startDate"
               type="date"
               name="startDate"
               placeholder="Ngày bắt đầu"
-            ></Input>
+            ></Input> */}
           </FieldRowInput>
           <FieldRowInput>
             <Label htmlFor="endDate">Ngày kết thúc</Label>
-            <Input
+            {/* <Input
               control={control}
               id="endDate"
               type="date"
               name="endDate"
               placeholder="Ngày kết thúc"
-            ></Input>
+            ></Input> */}
+            <DatePicker
+              autoComplete="off"
+              id="endDate"
+              name="endDate"
+              selected={selectedEndDate}
+              onChange={handleChangeEndDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/MM/yyyy"
+              showFullMonthYearPicker
+            />
           </FieldRowInput>
         </FieldInput>
         <div className="text-center">
           <Button
-            className="bg-secondaryColor text-sm md:text-base px-9 mt-6"
+            className="bg-secondaryColor text-sm md:text-base px-9 mt-6 w-[230px] whitespace-nowrap"
             type="submit"
           >
-            Tạo chiến dịch mới
+            {isSubmitting ? (
+              <FontAwesomeIcon
+                className="animate-spin"
+                icon={faSpinner}
+              ></FontAwesomeIcon>
+            ) : (
+              "Tạo chiến dịch mới"
+            )}
           </Button>
         </div>
       </form>

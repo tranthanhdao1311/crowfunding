@@ -36,6 +36,7 @@ const CampaignDetails = () => {
   SwiperCore.use([Autoplay]);
 
   const showModal = useSelector((state) => state.campaign.showModal);
+  const dark = useSelector((state) => state.darkMode.dark);
   // const showResult = useSelector((state) => state.campaign.setShowResult);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -89,28 +90,31 @@ const CampaignDetails = () => {
     <div className="w-full">
       {showModal && (
         <ReactModal
-          isOpen={true}
+          isOpen={showModal}
+          onRequestClose={handleCloseModal}
           overlayClassName="fixed inset-0 bg-black bg-opacity-30 z-[60] flex items-center justify-center"
-          className="bg-white px-10 py-10 outline-none w-[521px] max-h-[90vh] rounded-lg overflow-y-auto"
+          className={`${
+            dark ? "dark" : ""
+          } bg-white dark:bg-darkBg px-10 py-10 outline-none w-[521px] max-h-[90vh] rounded-lg overflow-y-auto  `}
         >
           <div className="relative">
-            <div className="text-right">
+            <div className="text-right  sticky top-0 ">
               <FontAwesomeIcon
                 onClick={() => handleCloseModal()}
-                className="text-text3 text-lg  cursor-pointer"
+                className="text-text3 text-3xl  cursor-pointer"
                 icon={faClose}
               ></FontAwesomeIcon>
             </div>
             <div className="flex flex-col gap-y-5 mb-10 ">
               <div>
-                <p className="text-center text-text1 font-bold text-xl mb-10">
-                  Back this project
+                <p className="text-center text-text1 dark:text-white font-bold text-xl mb-10">
+                  Lựa chọn
                 </p>
                 <div className="flex flex-col gap-y-1">
-                  <Label htmlFor="amount">Enter the contribute amount</Label>
+                  <Label htmlFor="amount">Nhập số tiền đóng góp</Label>
 
                   <input
-                    placeholder="$10"
+                    placeholder="100.000 VNĐ"
                     type="text"
                     id="amount"
                     value={valueAmount}
@@ -122,13 +126,13 @@ const CampaignDetails = () => {
               </div>
 
               <p className="text-text3 text-sm">
-                Contribution are not associatied with perks
+                Đóng góp không đi kèm với đặc quyền
               </p>
               <Button
                 onClick={handleNavigate}
                 className="bg-primaryColor px-11"
               >
-                Continue
+                Tiếp tục
               </Button>
               {/* <PayPalButton
                 amount={Number(valueAmount)}
@@ -321,7 +325,7 @@ const CampaignDetails = () => {
               </div>
               <div>
                 <span>
-                  {percent}% of {formatNumber}
+                  {percent}% của {formatNumber}
                 </span>
               </div>
               <div className="py-3 pr-3">
@@ -336,27 +340,27 @@ const CampaignDetails = () => {
             <div className="flex flex-col gap-y-4 ">
               <div className="flex flex-col md:flex-row gap-y-3 md:gap-y-0  gap-x-16">
                 <div>
-                  <p className="text-text2 text-xl font-semibold leading-6 whitespace-nowrap">
+                  <p className="text-text2  dark:text-white text-xl font-semibold leading-6 whitespace-nowrap">
                     {formatCurrentRaised}
                   </p>
                   <span className="text-text4 font-normal text-base leading-4 whitespace-nowrap">
-                    Raised of {formatNumber}
+                    Trên tổng {formatNumber}
                   </span>
                 </div>
                 <div>
-                  <p className="text-text2 text-xl font-semibold leading-6">
+                  <p className="text-text2 dark:text-white text-xl font-semibold leading-6">
                     0
                   </p>
                   <span className="text-text4 font-normal text-base leading-4 whitespace-nowrap">
-                    Total backers
+                    Người ủng hộ
                   </span>
                 </div>
                 <div>
-                  <p className="text-text2 text-xl font-semibold leading-6">
+                  <p className="text-text2 dark:text-white text-xl font-semibold leading-6">
                     {daysLeft}
                   </p>
                   <span className="text-text4 font-normal text-base leading-4 whitespace-nowrap">
-                    Days left
+                    Ngày còn lại
                   </span>
                 </div>
               </div>
@@ -364,7 +368,7 @@ const CampaignDetails = () => {
                 onClick={() => handleClickProject()}
                 className="bg-primaryColor w-full"
               >
-                Back this project
+                Xem tùy chọn
               </Button>
             </div>
           </div>
@@ -374,45 +378,48 @@ const CampaignDetails = () => {
         <div className="border-y-[1px] mt-24 ">
           <div className="flex justify-between py-5  items-center">
             <ul className="flex cursor-pointer gap-x-14 text-text3 text-sm">
-              <li className="text-secondaryColor">Campgain</li>
+              <li className="text-secondaryColor font-semibold">Chiến dịch</li>
             </ul>
             <Button
               onClick={() => handleClickProject()}
               className="bg-primaryColor w-[208px] h-[52px] "
             >
-              Back this project
+              Xem tùy chọn
             </Button>
           </div>
         </div>
         <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between relative ">
           <div className="lg:w-[60%]">
             <p>STORY</p>
-            <div className="w-full">{parse(detailPost.content || "")}</div>
+            <div className="w-full dark:text-white">
+              <div className="story-css-content">
+                {parse(detailPost.content || "")}
+              </div>
+            </div>
           </div>
           <div className="w-full lg:w-[40%] flex flex-col sticky top-0  ">
-            <p className="text-text1 text-base font-semibold my-3   ">
+            <p className="text-text1 dark:text-white text-base font-semibold my-3   ">
               Chọn một tùy chọn
             </p>
             <div className="w-full lg:h-[700px]  lg:overflow-y-auto">
-              <div className=" py-5 px-6 flex flex-col gap-y-5 hover:shadow-lg border hover:border-[#ccc] rounded-xl mb-8">
+              <div className=" py-5 px-6 flex flex-col gap-y-5 hover:shadow-lg border dark:border-darkStroke dark:bg-darkBg hover:border-[#ccc] rounded-xl mb-8">
                 <p className="text-center text-text3 font-medium text-xl">
-                  Pledge without reward
+                  Không cần phần thưởng
                 </p>
                 <Input
                   control={control}
-                  placeholder="$10"
+                  placeholder="100.000 VNĐ"
                   name="support"
                 ></Input>
-                <div className="p-5 bg-[#f7f7f7] rounded-lg">
-                  <p className="text-text2 font-semibold text-sm">
-                    Back it because you believe in it.
+                <div className="p-5 bg-[#f7f7f7] dark:bg-darkSecondary rounded-lg">
+                  <p className="text-text2 dark:text-text4 font-semibold text-sm">
+                    Bạn tin tưởng dự án này
                   </p>
                   <p className="text-text3 text-sm mt-5">
-                    Support the project for no reward, just because it speaks to
-                    you.
+                    Hỗ trợ dự án và không cần phần thưởng
                   </p>
                 </div>
-                <Button className="bg-secondaryColor w-full">Continue</Button>
+                <Button className="bg-secondaryColor w-full">Tiếp tục</Button>
               </div>
               {detailPost.perk?.length > 0 &&
                 detailPost?.perk.map((item) => (

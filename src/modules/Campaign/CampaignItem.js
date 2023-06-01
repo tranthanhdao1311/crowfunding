@@ -3,14 +3,34 @@ import { Link } from "react-router-dom";
 import CampaignDesc from "./CampaignDesc";
 import CampaignTitle from "./CampaignTitle";
 import useFormatRaised from "../../hooks/useFormatRaised";
+import axios from "axios";
+import { apiUrl } from "../../constants/api";
 
 const CampaignItem = ({ data }) => {
+  const vntAmount = data?.raisedAmount / 0.000043;
+
   const { percent, formatNumber, formatCurrentRaised } = useFormatRaised(
-    data?.goal
+    data?.goal,
+    vntAmount
   );
+
+  const handCountClick = async () => {
+    try {
+      const response = await axios.post(
+        `${apiUrl}/api/campaign/${data?.id}/click`,
+        {}
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (!data) return null;
   return (
-    <div className="w-full flex flex-col gap-y-4 rounded-2xl bg-white shadow-item">
+    <div
+      onClick={handCountClick}
+      className="w-full h-[410px] flex flex-col gap-y-4 rounded-2xl bg-white dark:bg-darkSecondary shadow-item dark:shadow-none"
+    >
       <div className="w-full h-full xl:max-w-[309px] xl:h-[158px]">
         <Link to={`/campaign/${data.title}`}>
           <img
@@ -46,7 +66,7 @@ const CampaignItem = ({ data }) => {
           <div className="flex flex-col gap-y-1">
             <CampaignTitle
               to={`/campaign/${data.title}`}
-              className="font-semibold text-base text-text1"
+              className="font-semibold text-base text-text1 dark:text-white"
             >
               {data.title}
             </CampaignTitle>
@@ -59,17 +79,19 @@ const CampaignItem = ({ data }) => {
           </div>
           <div className="flex gap-x-12">
             <div>
-              <p className="text-text2 text-sm font-semibold leading-6">
+              <p className="text-text2 dark:text-white text-sm font-semibold leading-6">
                 {formatCurrentRaised}
               </p>
               <span className="text-text4 font-normal text-xs leading-4">
-                Raised of {formatNumber}
+                Trên tổng {formatNumber}
               </span>
             </div>
             <div>
-              <p className="text-text2 text-sm font-semibold leading-6">0</p>
+              <p className="text-text2 text-sm font-semibold leading-6 dark:text-white">
+                0
+              </p>
               <span className="text-text4 font-normal text-xs leading-4 whitespace-nowrap">
-                Total backers
+                Người ủng hộ
               </span>
             </div>
           </div>
@@ -78,7 +100,7 @@ const CampaignItem = ({ data }) => {
           <img className="w-[30px]" src="/avtUser.png" alt="" />
           <p className="text-xs leading-5 text-text3 font-normal">
             By{" "}
-            <span className="text-text2 font-semibold">
+            <span className="text-text2 dark:text-white font-semibold">
               {data.infoUser.name}
             </span>
           </p>

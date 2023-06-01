@@ -10,12 +10,13 @@ import Button from "../../components/Button/Button";
 
 const ContributionSummury = ({ data, dataParent, price = 0 }) => {
   const { formatNumber } = useFormatRaised(data?.price || price);
-
+  console.log(dataParent);
   const { watch, setValue } = useForm();
   const watchAgree = watch("statusAgree");
   const vndToUsdRate = 0.000043; // Tỷ giá hối đoái từ VND sang USD
   const vndAmount = data?.price || price; // Giá trị VND cần chuyển đổi
   const usdAmount = vndAmount * vndToUsdRate; // Chuyển đổi sang USD
+  console.log(usdAmount);
 
   return (
     <div className="w-[462px] shadow-md bg-white rounded-3xl pt-4 pb-10 px-5">
@@ -95,10 +96,11 @@ const ContributionSummury = ({ data, dataParent, price = 0 }) => {
           onSuccess={(details, data) => {
             alert("Transaction completed by " + details.payer.name.given_name);
             return axios.put(
-              `${apiUrl}/api/campaigns/${dataParent.campaignData.id}/add-amount`,
+              `${apiUrl}/api/campaigns/${dataParent.id}/add-amount`,
 
               { amount: usdAmount }
             );
+
             // OPTIONAL: Call your server to save the transaction
             // return fetch("/paypal-transaction-complete", {
             //   method: "post",

@@ -23,7 +23,7 @@ const CampaignPerk = ({ data, campaignData }) => {
   return (
     <>
       <div
-        className="hover:shadow-lg border hover:border-[#ccc] rounded-lg mb-8 cursor-pointer"
+        className="hover:shadow-lg border dark:border-darkStroke hover:border-[#ccc] rounded-lg mb-8 cursor-pointer"
         onClick={handleShowButton}
       >
         {data.image && (
@@ -42,7 +42,9 @@ const CampaignPerk = ({ data, campaignData }) => {
             <div>
               <Heading className="mb-0">{data.title}</Heading>
               <div className="flex items-center gap-x-3 font-medium">
-                <p className="text-text1 text-xl">{formatNumber}</p>
+                <p className="text-text1 text-xl dark:text-white">
+                  {formatNumber}
+                </p>
                 {data.retailPrice && (
                   <p className="text-[#EB5757] line-through">
                     {formatRetailPrice}
@@ -51,14 +53,18 @@ const CampaignPerk = ({ data, campaignData }) => {
               </div>
             </div>
             <div>
-              <p className="text-text1 text-base font-medium">
+              <p className="text-text1 dark:text-text4 text-base font-medium">
                 Dự tính vận chuyển
               </p>
-              <p className="text-text2 text-sm">{formatDate}</p>
+              <p className="text-text2 text-sm dark:text-white">{formatDate}</p>
             </div>
             <div>
-              <span className="text-text2 text-sm">Số lượng</span>{" "}
-              <span className="text-text1 text-sm">{data.quantity}</span>
+              <span className="text-text2 text-sm dark:text-text4">
+                Số lượng
+              </span>{" "}
+              <span className="text-text1 text-sm dark:text-white">
+                {data.quantity}
+              </span>
             </div>
             {/* <p className="text-text2 text-sm">Ships worldwide</p> */}
           </div>

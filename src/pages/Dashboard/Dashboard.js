@@ -9,11 +9,12 @@ import Heading from "../../components/common/Heading";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { apiCampaigns } from "../../constants/api";
+import { apiCampaigns, apiUrl } from "../../constants/api";
 import Skeleton from "../../components/Skeleton/Skeleton";
 import ReactModal from "react-modal";
 import Button from "../../components/Button/Button";
 import { setFirstAccess } from "../../store/access/access-slice";
+import CampaignGrid from "../../modules/Campaign/CampaignGrid";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
@@ -22,6 +23,8 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
+  const [dataPopular, setDataPopular] = useState([]);
+  console.log(dataPopular);
 
   const newData =
     user && user.id && data.filter((item) => item.infoUser.id === user.id);
@@ -40,6 +43,14 @@ const Dashboard = () => {
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    async function fetchDataPopular() {
+      const response = await axios.get(`${apiUrl}/api/popular-posts`);
+      setDataPopular(response.data);
+    }
+    fetchDataPopular();
   }, []);
 
   // lần đầu vào trang web thì hiện thông báo
@@ -78,9 +89,21 @@ const Dashboard = () => {
             data={firstNewData}
           ></CampainItemFeature>
         )}
+        <Heading>Chiến dịch phổ biến</Heading>
+        <CampaignGrid>
+          {dataPopular.length > 0 &&
+            dataPopular.map((item) => (
+              <CampaignPopular key={item.id} data={item}></CampaignPopular>
+            ))}
+        </CampaignGrid>
 
-        <CampaignPopular></CampaignPopular>
-        <CampaignRecent></CampaignRecent>
+        <Heading>Chiến dịch gần đây</Heading>
+        <CampaignGrid>
+          {data.length > 0 &&
+            data.map((item) => (
+              <CampaignRecent key={item.id} data={item}></CampaignRecent>
+            ))}
+        </CampaignGrid>
       </div>
       {!firstAccess && (
         <ReactModal

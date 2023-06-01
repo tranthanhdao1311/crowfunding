@@ -3,16 +3,10 @@ import Heading from "../../components/common/Heading";
 import CampaignGrid from "./CampaignGrid";
 import CampaignItem from "./CampaignItem";
 
-const CampaignRecent = () => {
+const CampaignRecent = ({ data }) => {
   return (
     <div className="mt-7">
-      <Heading>Chiến dịch gần đây</Heading>
-      <CampaignGrid>
-        <CampaignItem></CampaignItem>
-        <CampaignItem></CampaignItem>
-        <CampaignItem></CampaignItem>
-        <CampaignItem></CampaignItem>
-      </CampaignGrid>
+      <CampaignItem data={data}></CampaignItem>
     </div>
   );
 };

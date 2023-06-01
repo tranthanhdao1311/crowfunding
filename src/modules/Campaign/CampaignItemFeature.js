@@ -16,12 +16,9 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const CampainItemFeature = ({ data, onDeletePost }) => {
-  console.log(data);
   const vndToUsdRate = 0.000043;
   const usdAmount = data.raisedAmount;
-  console.log(usdAmount);
   const vndAmount = usdAmount / vndToUsdRate;
-  console.log(vndAmount);
   const user = useSelector((state) => state.auth.user);
   const { dark } = useSelector((state) => state.darkMode);
   // days left

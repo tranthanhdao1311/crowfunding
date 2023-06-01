@@ -13,12 +13,16 @@
   @apply bg-darkBg;
   color: #ffffff;
 }
-
+.dark .quill {
+  @apply font-primary placeholder:text-white border-darkStroke;
+}
+.dark .quill .ql-editor .ql-blank::placeholder {
+  color: #ffffff;
+}
 /* Kiểu cho chế độ sáng */
 
 .quill {
   @apply border;
-  // border: 1px solid #f1f1f3;
   border-radius: 10px;
   padding: 15px 25px;
   text-align: center;
@@ -30,15 +34,18 @@
   display: inline-block;
   @apply bg-text4 bg-opacity-10;
   border-radius: 10px;
+  color: white;
 }
 
 .quill .ql-container.ql-snow {
   font-size: 14px;
   border: none;
 }
-
+.ql-editor .ql-blank {
+  @apply placeholder:dark:text-white;
+}
 .ql-editor {
-  @apply font-primary;
+  @apply placeholder:text-2xl;
 }
 .ql-editor.ql-blank::before {
   @apply text-text4 text-sm;
@@ -92,7 +99,9 @@
 //   padding: 10px 20px;
 //   border: 1px solid #ccc;
 // }
-#monthYearShip {
+#monthYearShip,
+#startDate,
+#endDate {
   width: 100%;
   padding: 13px 23px;
   border: 1px solid #ccc;
@@ -103,7 +112,9 @@
   font-size: 14px;
 }
 
-.dark #monthYearShip {
+.dark #monthYearShip,
+#startDate,
+#endDate {
   background-color: #13131a;
   border: 1px solid #3a3a43;
 }
@@ -120,4 +131,14 @@
 
 .dark .react-datepicker__triangle {
   display: none;
+}
+.dark .react-datepicker__day {
+  color: white !important;
+  :hover {
+    color: #3a3a43;
+  }
+}
+
+.dark .story-css-content p span {
+  color: white !important;
 }

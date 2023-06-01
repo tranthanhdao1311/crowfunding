@@ -19,7 +19,7 @@ const CampaignSimilar = ({ data }) => {
   if (!data) return null;
   return (
     <div className="mt-7">
-      <Heading>You also may be interested in</Heading>
+      <Heading>Bạn cũng có thể quan tâm đến</Heading>
       <CampaignGrid>
         {campaign.length > 0 &&
           campaign.map((item) => (
