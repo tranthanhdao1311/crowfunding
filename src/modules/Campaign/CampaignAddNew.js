@@ -28,9 +28,11 @@ import SignIn from "../../pages/auth/SignIn/SignIn";
 import { optionCate } from "../../constants/cate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment/moment";
+import InputTypeNumber from "../../components/InputTypeNumber";
 
 const modules = {
   toolbar: [
@@ -44,15 +46,22 @@ const modules = {
 };
 
 const schema = yup.object().shape({
-  title: yup.string().required("Please enter your title"),
-  desc: yup.string().required("Please enter your desc"),
-  category: yup.object().required("Please select category"),
-  country: yup.string().required("Please select country"),
+  title: yup.string().required("Vui lòng nhập tiêu đề"),
+  desc: yup.string().required("Vui lòng nhập mô tả"),
+  category: yup.object().required("Chọn danh mục"),
+  country: yup.string().required("Chọn quốc gia"),
   startDate: yup.string(),
   endDate: yup.string(),
-  // content: yup.string().required("Please enter your content"),
-  // imageCampaign: yup.string().required("File is required"),
-  // goal: yup.string().min(0).integer().required("Please enter your goal"),
+  content: yup.string(),
+  imageCampaign: yup.string().required("Vui lòng chọn hình ảnh"),
+  goal: yup
+    .number()
+    .transform((value, originalValue) => {
+      return originalValue.trim() !== "" ? parseInt(originalValue) : undefined;
+    })
+    .max(20000000000, "Mục tiêu không vượt quá 20 tỷ")
+    .required("Vui lòng nhập mục tiêu gọi vốn")
+    .nullable(),
 });
 
 const CampaignAddNew = () => {
@@ -83,8 +92,9 @@ const CampaignAddNew = () => {
       endDate: "",
       perk: [],
       clickCampaign: 0,
+      supporter: 0,
     },
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(schema),
   });
   const [content, setContent] = useState("");
@@ -165,6 +175,7 @@ const CampaignAddNew = () => {
   };
   // select date
   const [selectedStartDate, setSelectedStartDate] = useState();
+
   const handleChangeStartDate = (date) => {
     setSelectedStartDate(date);
   };
@@ -176,7 +187,7 @@ const CampaignAddNew = () => {
   return (
     <div className=" bg-white dark:bg-darkBg rounded-xl lg:py-10 lg:px-[66px] ">
       <div className="text-center mb-10">
-        <h1 className=" sm:w-auto text-text2 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
+        <h1 className=" sm:w-auto text-text2  dark:text-text4 whitespace-nowrap bg-text4 inline-block bg-opacity-10 rounded-xl px-4 sm:px-6 py-4 text-base sm:text-lg font-bold">
           Bắt đầu một chiến dịch 🚀
         </h1>
       </div>
@@ -221,9 +232,8 @@ const CampaignAddNew = () => {
         </FieldInputFull>
 
         <FieldInputFull>
-          <Label htmlFor="content">Câu chuyện * *</Label>
+          <Label htmlFor="content">Câu chuyện *</Label>
           <ReactQuill
-            placeholder="Nội dung chiến dịch...."
             modules={modules}
             theme="snow"
             value={content}
@@ -232,7 +242,7 @@ const CampaignAddNew = () => {
         </FieldInputFull>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="imageCampaign">Hình ảnh</Label>
+            <Label htmlFor="imageCampaign">Hình ảnh * </Label>
             <div className="flex gap-x-3">
               <ImageUpload
                 className="w-[200px] h-[200px]"
@@ -256,13 +266,20 @@ const CampaignAddNew = () => {
           </FieldRowInput>
           <FieldRowInput>
             <Label htmlFor="goal">Mục tiêu *</Label>
-            <Input
+            {/* <Input
               control={control}
               id="goal"
               type="text"
               name="goal"
               placeholder="0 VND"
-            ></Input>
+            ></Input> */}
+            <InputTypeNumber
+              control={control}
+              id="goal"
+              type="text"
+              name="goal"
+              placeholder="Mục tiêu gọi vốn"
+            ></InputTypeNumber>
           </FieldRowInput>
         </FieldInput>
 
@@ -283,7 +300,7 @@ const CampaignAddNew = () => {
 
           <FieldRowInput>
             <Dropdown control={control} id="country" name="country">
-              <Label htmlFor="country">Quốc gia</Label>
+              <Label htmlFor="country">Quốc gia *</Label>
               <SelectDropdown placeholder={labelCountry || "Chọn quốc gia"}>
                 <List>
                   <Search
@@ -351,7 +368,9 @@ const CampaignAddNew = () => {
         </FieldInput>
         <div className="text-center">
           <Button
-            className="bg-secondaryColor text-sm md:text-base px-9 mt-6 w-[230px] whitespace-nowrap"
+            className={`${
+              isSubmitting ? "pointer-events-none opacity-50" : ""
+            } bg-secondaryColor text-sm md:text-base px-9 mt-6 w-[230px] whitespace-nowrap`}
             type="submit"
           >
             {isSubmitting ? (

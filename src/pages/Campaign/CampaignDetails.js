@@ -55,7 +55,6 @@ const CampaignDetails = () => {
   const param = useParams();
   const { title } = param;
   const [detailPost, setDetailPost] = useState({});
-  console.log(detailPost);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(apiCampaigns);
@@ -73,18 +72,24 @@ const CampaignDetails = () => {
   const { daysLeft } = useFormatDate(detailPost);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const [valueAmount, setValueAmount] = useState("");
+  const [valueAmount, setValueAmount] = useState();
+  const [showError, setShowError] = useState(false);
 
   const handleChangeValueAmount = (e) => {
+    setShowError(false);
     const numericValue = e.target.value.replace(/\D/g, ""); // Loại bỏ các ký tự không phải số
     setValueAmount(Number(numericValue));
   };
 
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`payment/${detailPost?.id}`, {
-      state: { detailPost, valueAmount },
-    });
+    if (valueAmount >= 10000) {
+      navigate(`payment/${detailPost?.id}`, {
+        state: { detailPost, valueAmount },
+      });
+    } else {
+      setShowError(true);
+    }
   };
   return (
     <div className="w-full">
@@ -116,12 +121,20 @@ const CampaignDetails = () => {
                   <input
                     placeholder="100.000 VNĐ"
                     type="text"
+                    autoComplete="off"
                     id="amount"
                     value={valueAmount}
                     name="amount"
                     onChange={(e) => handleChangeValueAmount(e)}
-                    className="w-full bg-white dark:bg-darkStroke dark:text-white dark:border-darkStroke placeholder:dark:text-text2 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl"
+                    className={`${
+                      showError ? "dark:border-error border-error" : ""
+                    } w-full bg-white dark:bg-darkBg dark:text-white dark:border-darkStroke placeholder:dark:text-text4 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl`}
                   ></input>
+                  {showError && (
+                    <p className="text-xs text-error">
+                      Số tiền đóng góp nhỏ nhất là 10.000 đ
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -329,7 +342,7 @@ const CampaignDetails = () => {
                 </span>
               </div>
               <div className="py-3 pr-3">
-                <div className="w-full h-[5px] bg-[#efefef] rounded-sm ">
+                <div className="w-full h-[5px] bg-[#efefef] rounded-sm overflow-hidden">
                   <div
                     style={{ width: `${percent}%` }}
                     className={` h-[5px] bg-primaryColor rounded-sm`}
@@ -349,7 +362,7 @@ const CampaignDetails = () => {
                 </div>
                 <div>
                   <p className="text-text2 dark:text-white text-xl font-semibold leading-6">
-                    0
+                    {detailPost.supporter ? detailPost.supporter : 0}
                   </p>
                   <span className="text-text4 font-normal text-base leading-4 whitespace-nowrap">
                     Người ủng hộ
@@ -404,22 +417,40 @@ const CampaignDetails = () => {
             <div className="w-full lg:h-[700px]  lg:overflow-y-auto">
               <div className=" py-5 px-6 flex flex-col gap-y-5 hover:shadow-lg border dark:border-darkStroke dark:bg-darkBg hover:border-[#ccc] rounded-xl mb-8">
                 <p className="text-center text-text3 font-medium text-xl">
-                  Không cần phần thưởng
+                  Nhập số tiền đóng góp
                 </p>
-                <Input
-                  control={control}
+
+                <input
                   placeholder="100.000 VNĐ"
-                  name="support"
-                ></Input>
+                  type="text"
+                  autoComplete="off"
+                  id="amount"
+                  value={valueAmount}
+                  name="amount"
+                  onChange={(e) => handleChangeValueAmount(e)}
+                  className={`${
+                    showError ? "dark:border-error border-error" : ""
+                  } w-full bg-white dark:bg-darkBg dark:text-white dark:border-darkStroke placeholder:dark:text-text4 placeholder:text-text4 text-text1 border  outline-none pl-6 py-4 leading-5 text-sm rounded-xl`}
+                ></input>
+                {showError && (
+                  <p className="text-xs text-error">
+                    Số tiền đóng góp nhỏ nhất là 10.000 đ
+                  </p>
+                )}
                 <div className="p-5 bg-[#f7f7f7] dark:bg-darkSecondary rounded-lg">
                   <p className="text-text2 dark:text-text4 font-semibold text-sm">
                     Bạn tin tưởng dự án này
                   </p>
                   <p className="text-text3 text-sm mt-5">
-                    Hỗ trợ dự án và không cần phần thưởng
+                    Đóng góp không đi kèm với đặc quyền
                   </p>
                 </div>
-                <Button className="bg-secondaryColor w-full">Tiếp tục</Button>
+                <Button
+                  className="bg-secondaryColor w-full"
+                  onClick={handleNavigate}
+                >
+                  Tiếp tục
+                </Button>
               </div>
               {detailPost.perk?.length > 0 &&
                 detailPost?.perk.map((item) => (

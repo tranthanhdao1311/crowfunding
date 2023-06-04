@@ -8,22 +8,28 @@ import { apiUrl } from "../../constants/api";
 import { PayPalButton } from "react-paypal-button-v2";
 import Button from "../../components/Button/Button";
 
-const ContributionSummury = ({ data, dataParent, price = 0 }) => {
+const ContributionSummury = ({
+  data,
+  dataParent,
+  price = 0,
+  error,
+  value,
+  editAddress,
+  editPhone,
+}) => {
   const { formatNumber } = useFormatRaised(data?.price || price);
-  console.log(dataParent);
   const { watch, setValue } = useForm();
   const watchAgree = watch("statusAgree");
   const vndToUsdRate = 0.000043; // Tỷ giá hối đoái từ VND sang USD
   const vndAmount = data?.price || price; // Giá trị VND cần chuyển đổi
   const usdAmount = vndAmount * vndToUsdRate; // Chuyển đổi sang USD
-  console.log(usdAmount);
 
   return (
-    <div className="w-[462px] shadow-md bg-white rounded-3xl pt-4 pb-10 px-5">
-      <h3 className="mb-6 text-lg font-semibold leading-normal text-text2">
+    <div className="w-[462px] shadow-md bg-white dark:bg-darkSoft  rounded-3xl pt-4 pb-10 px-5">
+      <h3 className="mt-3 mb-6 text-lg font-semibold leading-normal text-text2 dark:text-text4">
         Tóm tắt đóng góp
       </h3>
-      <div className="flex items-center px-5 py-4 mb-4 rounded-xl bg-secondaryColor bg-opacity-5 gap-x-4">
+      <div className="flex items-center px-5 py-4 mb-4  rounded-xl bg-secondaryColor bg-opacity-5 gap-x-4">
         {data?.image && (
           <img
             src={data?.image}
@@ -38,11 +44,11 @@ const ContributionSummury = ({ data, dataParent, price = 0 }) => {
         <span className="ml-auto text-base font-bold">{formatNumber}</span>
       </div>
       <div className="px-5">
-        <div className="flex items-center justify-between mb-3 text-base font-medium text-text2">
+        <div className="flex items-center justify-between mb-3 text-base font-medium text-text2 dark:text-white">
           <span>Tổng phụ</span>
           <span>{formatNumber}</span>
         </div>
-        <div className="flex items-center justify-between mb-6 text-base font-medium text-text2">
+        <div className="flex items-center justify-between mb-6 text-base font-medium text-text2 dark:text-white">
           <span>Phí vận chuyển</span>
           <p>Miễn phí</p>
         </div>
@@ -50,7 +56,7 @@ const ContributionSummury = ({ data, dataParent, price = 0 }) => {
           <span>Tổng tiền</span>
           <span>{formatNumber}</span>
         </div>
-        <div className="text-xs text-text1 p-4 flex flex-col gap-y-3  my-6 border border-[#ccc]">
+        <div className="text-xs text-text1 dark:text-white p-4 flex flex-col gap-y-3  my-6 border border-[#ccc]">
           <p className="font-semibold text-base">
             Crowdfunding không phải là mua sắm.
           </p>
@@ -83,40 +89,32 @@ const ContributionSummury = ({ data, dataParent, price = 0 }) => {
             </p>
           </Checkbox>
         </div>
-
-        {/* <Button
-          className="w-full text-white bg-primaryColor"
-          onClick={() => handlePayment()}
-        >
-          Gửi thanh toán
+        {/* <Button onClick={handleClick} className="bg-black">
+          Buy
         </Button> */}
-        <PayPalButton
-          amount={Number(usdAmount.toFixed(2))}
-          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-          onSuccess={(details, data) => {
-            alert("Transaction completed by " + details.payer.name.given_name);
-            return axios.put(
-              `${apiUrl}/api/campaigns/${dataParent.id}/add-amount`,
+        {value.address && value.phone && !editAddress && !editPhone && (
+          <PayPalButton
+            amount={Number(usdAmount.toFixed(2))}
+            onSuccess={(details, data) => {
+              alert(
+                "Transaction completed by " + details.payer.name.given_name
+              );
+              return axios.put(
+                `${apiUrl}/api/campaigns/${dataParent.id}/add-amount`,
 
-              { amount: usdAmount }
-            );
+                { amount: usdAmount }
+              );
+            }}
+            options={{
+              clientId:
+                "AbsuQWHyF68P2xTioYiXREERj3yxrJzg-9hTUjurNg7ljdN1EB2vklR3T16q9sGAx1O8cLVn8H7GNDgB",
+            }}
+            onError={() => {
+              alert("Paypal error");
+            }}
+          />
+        )}
 
-            // OPTIONAL: Call your server to save the transaction
-            // return fetch("/paypal-transaction-complete", {
-            //   method: "post",
-            //   body: JSON.stringify({
-            //     orderId: data.orderID,
-            //   }),
-            // });
-          }}
-          options={{
-            clientId:
-              "AbsuQWHyF68P2xTioYiXREERj3yxrJzg-9hTUjurNg7ljdN1EB2vklR3T16q9sGAx1O8cLVn8H7GNDgB",
-          }}
-          onError={() => {
-            alert("Paypal error");
-          }}
-        />
         {/* <PayPalButton
           createOrder={(data, actions) => {
             return actions.order.create({

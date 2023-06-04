@@ -40,7 +40,7 @@ const Campaign = () => {
   const [itemCampaign, setItemCampaign] = useState(3);
 
   const handleSeeMoreCampaign = () => {
-    const increCampaign = itemCampaign + 1;
+    const increCampaign = itemCampaign + 3;
     setItemCampaign(increCampaign);
   };
 
@@ -112,7 +112,7 @@ const Campaign = () => {
             onClick={() => handleSeeMoreCampaign()}
             className="bg-secondaryColor bg-opacity-20 text-secondaryColor px-6 my-6 sm:px-10 sm:my-10"
           >
-            Xem thêm...
+            Xem thêm
             <FontAwesomeIcon
               className="ml-2 text-xs"
               icon={faPlus}

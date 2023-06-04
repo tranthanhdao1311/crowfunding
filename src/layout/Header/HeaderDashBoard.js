@@ -57,7 +57,7 @@ const HeaderDashBoard = () => {
           <Link to={`/start-campaign`}>
             <Button
               type="button"
-              className="basic-2/6 h-[40px] md:hidden sm:h-[52px] bg-secondaryColor opacity-80 px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
+              className="basic-2/6 h-[40px] md:hidden sm:h-[52px] bg-secondaryColor  px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
             >
               Bắt đầu chiến dịch
             </Button>
@@ -97,7 +97,7 @@ const HeaderDashBoard = () => {
             />
           </svg>
 
-          <span className="font-semibold text-base text-text2 whitespace-nowrap">
+          <span className="font-semibold text-base text-text2 dark:text-text4 whitespace-nowrap">
             Gây quỹ
           </span>
           <svg
@@ -114,7 +114,7 @@ const HeaderDashBoard = () => {
         <Link to={`/start-campaign`}>
           <Button
             type="button"
-            className="basic-2/6 h-[40px] hidden md:block sm:h-[52px] bg-secondaryColor opacity-80 px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
+            className="basic-2/6 h-[40px] hidden md:block sm:h-[52px] bg-secondaryColor px-5 lg:px-7 text-sm lg:text-base mt-0 whitespace-nowrap"
           >
             Bắt đầu chiến dịch
           </Button>

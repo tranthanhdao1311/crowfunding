@@ -22,7 +22,7 @@ const schema = yup.object().shape({
     .required("Vui lòng nhập email"),
   password: yup
     .string()
-    .min(8, "Mật khẩu phải có 8 ký tự    ")
+    .min(8, "Mật khẩu phải có 8 ký tự")
     .required("Vui lòng nhập mật khẩu của bạn"),
 });
 const SignIn = () => {

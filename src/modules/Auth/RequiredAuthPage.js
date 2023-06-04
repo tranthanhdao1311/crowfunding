@@ -6,7 +6,7 @@ const RequiredAuthPage = ({ children }) => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user || !user.id) {
+    if (!user) {
       navigate("/sign-in");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -9,7 +9,7 @@ const Option = ({ children, onClick = () => {} }) => {
   };
   return (
     <div
-      className="px-6 py-2 text-text1 font-normal text-sm"
+      className="px-6 py-2 text-text1 dark:text-white font-normal text-sm"
       onClick={handleClickOption}
     >
       {children}

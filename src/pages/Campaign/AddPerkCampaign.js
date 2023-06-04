@@ -21,6 +21,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment/moment";
+import { format } from "date-fns";
 
 const schema = yup.object().shape({
   title: yup.string().required("Vui lòng nhập tiêu đề"),
@@ -48,6 +50,7 @@ const schema = yup.object().shape({
   //   .min(0)
   //   .required("Vui lòng nhập giá bán lẻ"),
   monthYearShip: yup.string(),
+  // .matches(/^\d{2}\/\d{4}$/, "Vui lòng chọn đúng định dạng MM/yyyy"),
 });
 
 const AddPerkCampaign = () => {
@@ -75,10 +78,19 @@ const AddPerkCampaign = () => {
   });
   const { dark } = useSelector((state) => state.darkMode);
   // select date
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState("");
+  const [formatDate, setFormatDate] = useState("");
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      const formatedDate = format(selectedDate, "MM/yyyy");
+      setFormatDate(formatedDate);
+    }
+  }, [selectedDate]);
 
   // validate
   useEffect(() => {
@@ -114,11 +126,12 @@ const AddPerkCampaign = () => {
     getValues(name);
     setFileImg(getValues(name));
   };
+
   const handleUpdateItem = async (values) => {
     const result = {
       ...values,
       image: fileImg,
-      monthYearShip: selectedDate,
+      monthYearShip: formatDate,
       id: uuidv4(),
     };
     try {
@@ -175,7 +188,7 @@ const AddPerkCampaign = () => {
             ></InputTypeNumber>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="retailPrice">Giá bán lẻ *</Label>
+            <Label htmlFor="retailPrice">Giá bán lẻ </Label>
             <InputTypeNumber
               control={control}
               id="retailPrice"
@@ -187,7 +200,7 @@ const AddPerkCampaign = () => {
         </FieldInput>
         <FieldInput>
           <FieldRowInput>
-            <Label htmlFor="image">Hình ảnh *</Label>
+            <Label htmlFor="image">Hình ảnh </Label>
             <ImageUpload
               onChange={handleChangImg}
               className="w-full h-[300px]"
@@ -196,7 +209,7 @@ const AddPerkCampaign = () => {
             ></ImageUpload>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="desc">Mô tả</Label>
+            <Label htmlFor="desc">Mô tả *</Label>
             <TextArea
               control={control}
               id="desc"
@@ -210,6 +223,7 @@ const AddPerkCampaign = () => {
           <FieldRowInput className={`${dark ? "dark" : ""}`}>
             <Label htmlFor="monthYearShip">Dự kiến giao hàng</Label>
             <DatePicker
+              autoComplete="off"
               id="monthYearShip"
               name="monthYearShip"
               selected={selectedDate}

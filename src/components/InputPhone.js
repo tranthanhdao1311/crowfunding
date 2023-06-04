@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 
-const Input = ({
+const InputPhone = ({
   type,
   id,
   name,
@@ -12,6 +12,7 @@ const Input = ({
   onChange,
   error,
   className,
+
   value,
 }) => {
   const { field } = useController({ name, control });
@@ -42,11 +43,11 @@ const Input = ({
   );
 };
 
-Input.propTypes = {
+InputPhone.propTypes = {
   children: PropTypes.node,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
 };
 
-export default Input;
+export default InputPhone;

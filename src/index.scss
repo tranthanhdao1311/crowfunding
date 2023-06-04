@@ -113,8 +113,8 @@
 }
 
 .dark #monthYearShip,
-#startDate,
-#endDate {
+.dark #startDate,
+.dark #endDate {
   background-color: #13131a;
   border: 1px solid #3a3a43;
 }
@@ -134,9 +134,6 @@
 }
 .dark .react-datepicker__day {
   color: white !important;
-  :hover {
-    color: #3a3a43;
-  }
 }
 
 .dark .story-css-content p span {

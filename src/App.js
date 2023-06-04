@@ -1,6 +1,11 @@
 import React, { Fragment, Suspense, startTransition, useEffect } from "react";
 import { publicRouter } from "./configRouter";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +50,6 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
   return (
     <Suspense fallback="">
       <Router>

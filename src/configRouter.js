@@ -2,6 +2,7 @@ import { lazy } from "react";
 import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
 import PaymentCampaign from "./pages/Payment/PaymentCampaign";
+import { useLocation } from "react-router-dom";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn/SignIn"));
 const AddPerkCampaign = lazy(() => import("./pages/Campaign/AddPerkCampaign"));

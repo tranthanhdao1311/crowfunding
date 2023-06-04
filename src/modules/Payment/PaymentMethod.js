@@ -3,7 +3,7 @@ import React from "react";
 const PaymentMethod = () => {
   return (
     <div className="flex gap-x-[30px]">
-      <div className="w-[132px] h-[102px] shadow-1 rounded-2xl bg-white flex flex-col justify-center items-center py-6 px-10 border border-primary relative">
+      <div className="w-[132px] h-[102px] shadow-1 rounded-2xl bg-white dark:bg-darkSecondary dark:border-darkStroke flex flex-col justify-center items-center py-6 px-10 border border-primary relative">
         <img srcSet="/SeekPng1@2x.png 2x" alt="paypal" />
         <span className="absolute top-2 right-2">
           <svg
@@ -20,7 +20,7 @@ const PaymentMethod = () => {
           </svg>
         </span>
       </div>
-      <div className="w-[132px] h-[102px] shadow-1 rounded-2xl bg-white flex flex-col justify-center items-center py-6 px-10">
+      <div className="w-[132px] h-[102px] shadow-1 rounded-2xl bg-white dark:bg-darkSecondary dark:border-darkStroke flex flex-col justify-center items-center py-6 px-10">
         <img srcSet="/SeekPng1.png 2x" alt="payoneer" />
       </div>
     </div>

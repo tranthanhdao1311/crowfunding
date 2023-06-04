@@ -121,7 +121,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
               )}
 
               <FontAwesomeIcon
-                className="bg-redSoft px-6 py-3 rounded-lg text-error "
+                className="bg-redSoft px-6 py-3 rounded-lg text-error"
                 icon={faXmark}
                 onClick={handleDeleteModalSearch}
               ></FontAwesomeIcon>

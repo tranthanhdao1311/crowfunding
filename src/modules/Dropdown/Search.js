@@ -7,7 +7,7 @@ const Search = ({ placeholder, className, onChange }) => {
         placeholder={placeholder}
         type="text"
         onChange={onChange}
-        className={`border  w-full py-3 px-6 text-text1 text-sm rounded-lg bg-white outline-none ${className}`}
+        className={`border  w-full py-3 px-6 text-text1 dark:text-white dark:border-darkBg text-sm rounded-lg bg-white dark:bg-darkSoft outline-none ${className}`}
       ></input>
     </div>
   );

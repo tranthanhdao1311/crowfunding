@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import CampaignDesc from "./CampaignDesc";
 import CampaignTitle from "./CampaignTitle";
 import useFormatRaised from "../../hooks/useFormatRaised";
@@ -16,20 +16,29 @@ const CampaignItem = ({ data }) => {
 
   const handCountClick = async () => {
     try {
-      const response = await axios.post(
-        `${apiUrl}/api/campaign/${data?.id}/click`,
-        {}
-      );
-      console.log(response);
+      await axios.post(`${apiUrl}/api/campaign/${data?.id}/click`, {});
     } catch (error) {
       console.log(error);
     }
   };
+
+  // scroll
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/") {
+      return;
+    } else {
+      window.scrollTo({
+        top: 0,
+      });
+    }
+  }, [location.pathname]);
+
   if (!data) return null;
   return (
     <div
       onClick={handCountClick}
-      className="w-full h-[410px] flex flex-col gap-y-4 rounded-2xl bg-white dark:bg-darkSecondary shadow-item dark:shadow-none"
+      className="w-full min-h-[410px] flex flex-col gap-y-4 rounded-2xl bg-white dark:bg-darkSecondary shadow dark:shadow-none"
     >
       <div className="w-full h-full xl:max-w-[309px] xl:h-[158px]">
         <Link to={`/campaign/${data.title}`}>
@@ -82,13 +91,13 @@ const CampaignItem = ({ data }) => {
               <p className="text-text2 dark:text-white text-sm font-semibold leading-6">
                 {formatCurrentRaised}
               </p>
-              <span className="text-text4 font-normal text-xs leading-4">
+              <span className="text-text4 font-normal text-xs leading-4 whitespace-nowrap">
                 Trên tổng {formatNumber}
               </span>
             </div>
             <div>
               <p className="text-text2 text-sm font-semibold leading-6 dark:text-white">
-                0
+                {data.supporter ? data.supporter : 0}
               </p>
               <span className="text-text4 font-normal text-xs leading-4 whitespace-nowrap">
                 Người ủng hộ
@@ -97,7 +106,11 @@ const CampaignItem = ({ data }) => {
           </div>
         </div>
         <div className="flex gap-x-2 items-center pb-4">
-          <img className="w-[30px]" src="/avtUser.png" alt="" />
+          <img
+            className="w-[30px] rounded-full"
+            src={data.infoUser.avtUser}
+            alt=""
+          />
           <p className="text-xs leading-5 text-text3 font-normal">
             By{" "}
             <span className="text-text2 dark:text-white font-semibold">

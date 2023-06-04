@@ -15,6 +15,8 @@ import ReactModal from "react-modal";
 import Button from "../../components/Button/Button";
 import { setFirstAccess } from "../../store/access/access-slice";
 import CampaignGrid from "../../modules/Campaign/CampaignGrid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
@@ -24,7 +26,6 @@ const Dashboard = () => {
 
   const [data, setData] = useState([]);
   const [dataPopular, setDataPopular] = useState([]);
-  console.log(dataPopular);
 
   const newData =
     user && user.id && data.filter((item) => item.infoUser.id === user.id);
@@ -66,6 +67,15 @@ const Dashboard = () => {
   const handleAccess = () => {
     dispatch(setFirstAccess(!firstAccess));
   };
+  const [countItemPopular, setCountItemPopular] = useState(8);
+  const handleSeeMorePopular = () => {
+    setCountItemPopular(countItemPopular + 4);
+  };
+
+  const [countItemRecent, setCountItemRecent] = useState(8);
+  const handleSeeMoreRecent = () => {
+    setCountItemRecent(countItemRecent + 4);
+  };
   return (
     <>
       <div className="w-full">
@@ -79,8 +89,13 @@ const Dashboard = () => {
             )}
           </Link>
         </Heading>
-        {data.length <= 0 && <p>Tạo chiến dịch</p>}
-        {data.length > 0 && newData && newData?.length <= 0 && (
+        {newData?.length <= 0 && (
+          <p className="text-text2">
+            Truy cập vào trình chỉnh sửa của chúng tôi và tạo chiến dịch đầu
+            tiên của bạn!
+          </p>
+        )}
+        {newData?.length > 0 && newData && newData?.length <= 0 && (
           <SkeletonCampaignItem></SkeletonCampaignItem>
         )}
         {user && user.id && firstNewData && (
@@ -89,21 +104,58 @@ const Dashboard = () => {
             data={firstNewData}
           ></CampainItemFeature>
         )}
-        <Heading>Chiến dịch phổ biến</Heading>
-        <CampaignGrid>
-          {dataPopular.length > 0 &&
-            dataPopular.map((item) => (
-              <CampaignPopular key={item.id} data={item}></CampaignPopular>
-            ))}
-        </CampaignGrid>
-
-        <Heading>Chiến dịch gần đây</Heading>
-        <CampaignGrid>
-          {data.length > 0 &&
-            data.map((item) => (
-              <CampaignRecent key={item.id} data={item}></CampaignRecent>
-            ))}
-        </CampaignGrid>
+        <div>
+          <Heading className="mb-0 mt-6">Chiến dịch phổ biến</Heading>
+          <CampaignGrid>
+            {dataPopular.length > 0 &&
+              dataPopular
+                .slice(0, countItemPopular)
+                .map((item) => (
+                  <CampaignPopular key={item.id} data={item}></CampaignPopular>
+                ))}
+          </CampaignGrid>
+          {dataPopular.length > countItemPopular && (
+            <div className="text-center">
+              <Button
+                type="button"
+                onClick={() => handleSeeMorePopular()}
+                className="bg-secondaryColor bg-opacity-20 text-secondaryColor px-6 my-6 sm:px-10 sm:my-10"
+              >
+                Xem thêm
+                <FontAwesomeIcon
+                  className="ml-2 text-xs"
+                  icon={faPlus}
+                ></FontAwesomeIcon>
+              </Button>
+            </div>
+          )}
+        </div>
+        <div>
+          <Heading className="mb-0 mt-6">Chiến dịch gần đây</Heading>
+          <CampaignGrid>
+            {data.length > 0 &&
+              data
+                .slice(0, countItemRecent)
+                .map((item) => (
+                  <CampaignRecent key={item.id} data={item}></CampaignRecent>
+                ))}
+          </CampaignGrid>
+          {countItemRecent < data.length && (
+            <div className="text-center">
+              <Button
+                type="button"
+                onClick={() => handleSeeMoreRecent()}
+                className="bg-secondaryColor bg-opacity-20 text-secondaryColor px-6 my-6 sm:px-10 sm:my-10"
+              >
+                Xem thêm
+                <FontAwesomeIcon
+                  className="ml-2 text-xs"
+                  icon={faPlus}
+                ></FontAwesomeIcon>
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
       {!firstAccess && (
         <ReactModal

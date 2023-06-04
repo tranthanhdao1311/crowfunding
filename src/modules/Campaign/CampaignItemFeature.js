@@ -183,7 +183,7 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
               </div>
               <div>
                 <span className="block text-text2 dark:text-white pb-1 font-bold text-xl">
-                  0
+                  {data.supporter ? data.supporter : 0}
                 </span>
                 <span className="text-text4 font-normal">Người ủng hộ</span>
               </div>

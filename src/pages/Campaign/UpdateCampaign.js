@@ -26,10 +26,11 @@ import SelectDropdown from "../../modules/Dropdown/SelectDropdown";
 import List from "../../modules/Dropdown/List";
 import Search from "../../modules/Dropdown/Search";
 import Option from "../../modules/Dropdown/Option";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/moment";
+import InputTypeNumber from "../../components/InputTypeNumber";
 
 const modules = {
   toolbar: [
@@ -50,7 +51,7 @@ const schema = yup.object().shape({
   startDate: yup.string().required("Please select start date"),
   endDate: yup.string().required("Please select end date"),
   // content: yup.string().required("Please enter your content"),
-  // imageCampaign: yup.string().required("File is required"),
+  imageCampaign: yup.string().required("File is required"),
   // goal: yup.string().min(0).integer().required("Please enter your goal"),
 });
 
@@ -68,7 +69,7 @@ const UpdateCampaign = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-
+  const [img, setImg] = useState([]);
   useEffect(() => {
     async function fetchDataById() {
       try {
@@ -91,9 +92,6 @@ const UpdateCampaign = () => {
     fetchDataById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const [img, setImg] = useState();
-  console.log(img);
 
   const [content, setContent] = useState("");
 
@@ -140,6 +138,7 @@ const UpdateCampaign = () => {
     setArrImg([...arrImg, getValues(name)]);
   };
 
+  const navigate = useNavigate();
   const handleCreateCampaign = async (values) => {
     try {
       const updateData = {
@@ -148,6 +147,7 @@ const UpdateCampaign = () => {
         content,
       };
       await axios.put(`${apiUrl}/api/campaigns/${id}`, updateData);
+      navigate("/");
       toast.success("Cập nhật thành công!");
     } catch (error) {
       toast.error("Cập nhật thất bại!");
@@ -241,14 +241,14 @@ const UpdateCampaign = () => {
             </div>
           </FieldRowInput>
           <FieldRowInput>
-            <Label htmlFor="goal">Giá *</Label>
-            <Input
+            <Label htmlFor="goal">Mục tiêu *</Label>
+            <InputTypeNumber
               control={control}
               id="goal"
               type="text"
               name="goal"
-              placeholder="$0.00 USD"
-            ></Input>
+              placeholder="Mục tiêu gọi vốn"
+            ></InputTypeNumber>
           </FieldRowInput>
         </FieldInput>
 
