@@ -18,11 +18,10 @@ import InputPhone from "../../components/InputPhone";
 
 const schema = yup.object().shape({
   address: yup.string().required("Vui lòng nhập địa chỉ giao hàng"),
-  // phone: yup
-  //   .string()
-  //   .required("Vui lòng nhập số điện thoại của bạn")
-  //   .min(10, "Số điện thoại không đúng")
-  //   .max(14),
+  phone: yup
+    .string()
+    .required("Vui lòng nhập số điện thoại của bạn")
+    .matches(/^[0-9]{10,11}$/, "Số điện thoại không hợp lệ"),
 });
 const PaymentCampaign = () => {
   const user = useSelector((state) => state.auth.user);
@@ -33,6 +32,13 @@ const PaymentCampaign = () => {
   const dataPrice = location.state.valueAmount;
   const dataChild = dataParent?.perk.find((item) => item.id === id);
   // const dataChild1 = dataParent.id === id;
+
+  const [privilege, setPrivilege] = useState(false);
+  useEffect(() => {
+    if (dataChild) {
+      setPrivilege(true);
+    }
+  }, [dataChild, privilege]);
 
   const {
     control,
@@ -63,22 +69,22 @@ const PaymentCampaign = () => {
   const [value, setValue] = useState({});
   const [showBtn, setShowBtn] = useState(true);
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const handleChangePhone = (e) => {
-    const reg = /^\d{3}[-\s]?\d{3}[-\s]?\d{4}$/;
-    if (reg.test(e.target.value) === true) {
-      setPhoneNumber(e.target.value);
-    }
-  };
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  // const [errorPhoneNumber, setErrorPhoneNumber] = useState(false);
+  // const handleChangePhone = (e) => {
+  //   const reg = /^\d{3}[-\s]?\d{3}[-\s]?\d{4}$/;
+  //   if (reg.test(e.target.value) === true) {
+  //     setPhoneNumber(e.target.value);
+  //   }
+  // };
 
   const handleSubmitForm = (values) => {
     const valueForm = {
       ...values,
       name: user?.name,
       email: user?.email,
-      phone: phoneNumber,
+      // phone: phoneNumber,
     };
-    console.log(valueForm);
     setValue(valueForm);
     setShowBtn(false);
     setEditPhone(false);
@@ -87,8 +93,8 @@ const PaymentCampaign = () => {
   if (id === "undefined") return null;
   return (
     <RequiredAuthPage>
-      <div className="w-full flex items-start gap-x-11 justify-between mr-10">
-        <div className="flex-1">
+      <div className="w-full md:flex items-start gap-x-5 lg:gap-x-11  justify-between mr-0 lg:mr-10">
+        <div className="flex-1 ">
           <div className="">
             <div className="mb-5">
               <p className="text-text2 dark:text-text4 text-lg font-medium pb-2">
@@ -110,8 +116,8 @@ const PaymentCampaign = () => {
               </div>
             </div>
             <form onSubmit={handleSubmit(handleSubmitForm)}>
-              <FieldInput>
-                <FieldRowInput className="gap-y-0">
+              <FieldInput className="">
+                <FieldRowInput className="gap-y-0 ">
                   <Label>Họ tên</Label>
                   <p className="text-text1 dark:text-white">{user?.name}</p>
                 </FieldRowInput>
@@ -120,79 +126,84 @@ const PaymentCampaign = () => {
                   <p className="text-text1 dark:text-white">{user?.email}</p>
                 </FieldRowInput>
               </FieldInput>
-              <FieldInput>
-                <FieldRowInput className="gap-y-0">
-                  <Label htmlFor="address">Địa chỉ giao hàng</Label>
-                  {!editAddress && value.address ? (
-                    <div className="flex gap-x-3">
-                      <span className="text-text1 dark:text-white">
-                        {value.address}
-                      </span>
-                      <span>
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          onClick={handleEditAddress}
-                          className="cursor-pointer text-text2 dark:text-white"
-                        ></FontAwesomeIcon>
-                      </span>
-                    </div>
-                  ) : (
-                    <Input
-                      error={errors.address?.message}
-                      control={control}
-                      name="address"
-                      id="address"
-                      type="text"
-                      placeholder="Nhập địa chỉ giao hàng..."
-                    ></Input>
-                  )}
-                </FieldRowInput>
-                <FieldRowInput className="gap-y-0">
-                  <Label htmlFor="phone">Số điện thoại</Label>
-                  {!editPhone && value.phone ? (
-                    <div className="flex gap-x-3">
-                      <span className="text-text1 dark:text-white">
-                        {value.phone}{" "}
-                      </span>
-                      <span>
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          onClick={handleEditPhone}
-                          className="cursor-pointer text-text2 dark:text-white"
-                        ></FontAwesomeIcon>
-                      </span>
-                    </div>
-                  ) : (
-                    <>
-                      <input
-                        name="phone"
-                        id="phone"
-                        type="text"
-                        onChange={(e) => handleChangePhone(e)}
-                        placeholder="+84 123-456-789"
-                      ></input>
-                    </>
-                  )}
-                </FieldRowInput>
-              </FieldInput>
-              {(editPhone || editAddress || showBtn) && (
-                <div className="text-center">
-                  <Button
-                    type="submit"
-                    className={`${
-                      isSubmitting ? "opacity-50 pointer-events-none" : ""
-                    } bg-secondaryColor max-w-[200px] px-4 h-[46px] text-sm`}
-                  >
-                    {isSubmitting ? (
-                      <FontAwesomeIcon
-                        className="animate-spin"
-                        icon={faSpinner}
-                      ></FontAwesomeIcon>
+              {privilege && (
+                <FieldInput>
+                  <FieldRowInput className="gap-y-0">
+                    <Label htmlFor="address">Địa chỉ giao hàng</Label>
+                    {!editAddress && value.address ? (
+                      <div className="flex gap-x-3">
+                        <span className="text-text1 dark:text-white">
+                          {value.address}
+                        </span>
+                        <span>
+                          <FontAwesomeIcon
+                            icon={faEdit}
+                            onClick={handleEditAddress}
+                            className="cursor-pointer text-text2 dark:text-white"
+                          ></FontAwesomeIcon>
+                        </span>
+                      </div>
                     ) : (
-                      "Xác nhận thông tin"
+                      <Input
+                        error={errors.address?.message}
+                        control={control}
+                        name="address"
+                        id="address"
+                        placeholder="Nhập địa chỉ giao hàng..."
+                      ></Input>
                     )}
-                  </Button>
-                </div>
+                  </FieldRowInput>
+                  <FieldRowInput className="gap-y-0">
+                    <Label htmlFor="phone">Số điện thoại</Label>
+                    {!editPhone && value.phone ? (
+                      <div className="flex gap-x-3">
+                        <span className="text-text1 dark:text-white">
+                          {value.phone}{" "}
+                        </span>
+                        <span>
+                          <FontAwesomeIcon
+                            icon={faEdit}
+                            onClick={handleEditPhone}
+                            className="cursor-pointer text-text2 dark:text-white"
+                          ></FontAwesomeIcon>
+                        </span>
+                      </div>
+                    ) : (
+                      <>
+                        <Input
+                          error={errors.phone?.message}
+                          control={control}
+                          name="phone"
+                          id="phone"
+                          placeholder="Nhập số liên lạc của bạn"
+                        ></Input>
+                      </>
+                    )}
+                  </FieldRowInput>
+                </FieldInput>
+              )}
+              {privilege && (
+                <>
+                  {(editPhone || editAddress || showBtn) && (
+                    <div className="text-center">
+                      <Button
+                        type="submit"
+                        className={`${
+                          isSubmitting ? "opacity-50 pointer-events-none" : ""
+                        } bg-secondaryColor max-w-[200px] px-4 h-[46px] text-sm`}
+                      >
+                        {isSubmitting ? (
+                          <FontAwesomeIcon
+                            className="animate-spin"
+                            icon={faSpinner}
+                          ></FontAwesomeIcon>
+                        ) : (
+                          "Xác nhận thông tin"
+                        )}
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
             </form>
           </div>
@@ -203,10 +214,10 @@ const PaymentCampaign = () => {
             <PaymentMethod></PaymentMethod>
           </div>
         </div>
-        <div className=" max-w-[462px]">
+        <div className="mt-11 ">
           <ContributionSummury
             dataParent={dataParent}
-            data={dataChild || dataParent}
+            dataCampaign={dataChild || dataParent}
             price={dataPrice}
             error={errors}
             value={value}

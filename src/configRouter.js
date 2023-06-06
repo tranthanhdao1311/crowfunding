@@ -3,6 +3,7 @@ import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
 import PaymentCampaign from "./pages/Payment/PaymentCampaign";
 import { useLocation } from "react-router-dom";
+import PaymentEnd from "./pages/Payment/PaymentEnd";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn/SignIn"));
 const AddPerkCampaign = lazy(() => import("./pages/Campaign/AddPerkCampaign"));
@@ -52,6 +53,7 @@ const publicRouter = [
   },
   { path: "/payment", component: Payment },
   { path: "/campaign/:title/payment/:id", component: PaymentCampaign },
+  { path: "/campaign/:title/payment/:id/end", component: PaymentEnd },
   {
     path: "/ProfileSetting",
     component: ProfileSetting,

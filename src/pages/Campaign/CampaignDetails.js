@@ -327,7 +327,7 @@ const CampaignDetails = () => {
                   </div>
                   <div className="flex gap-x-2 items-center">
                     <span className="text-primaryColor opacity-80 font-normal text-sm">
-                      02 Campaign
+                      02 Chiến dịch
                     </span>
                     <span className="w-[6px] h-[6px] bg-text3 rounded-full"></span>
                     <span className="text-text3 text-sm">
@@ -338,7 +338,7 @@ const CampaignDetails = () => {
               </div>
               <div>
                 <span>
-                  {percent}% của {formatNumber}
+                  {percent || 0}% của {formatNumber}
                 </span>
               </div>
               <div className="py-3 pr-3">

@@ -18,7 +18,7 @@ const HeaderDashBoard = () => {
   };
 
   return (
-    <div className="flex justify-between items-center h-[40px] md:h-[52px] mb-8 px-3 relative">
+    <div className="flex justify-between items-center h-[40px] md:h-[52px] gap-x-6 mb-8 px-3 relative">
       <div className=" flex gap-x-6 justify-between items-center ">
         {toggleSideBar ? (
           <Link
@@ -152,7 +152,7 @@ const HeaderDashBoard = () => {
               <>
                 <Link to={`/profileSetting`}>
                   <img
-                    className="sm:hidden w-[40px] h-[40px] object-cover rounded-full"
+                    className="md:hidden w-[40px] h-[40px] object-cover rounded-full"
                     src={user.avtUser}
                     alt=""
                   />

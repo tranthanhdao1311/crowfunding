@@ -10,7 +10,7 @@ const CampaignPerk = ({ data, campaignData }) => {
   const { formatNumber } = useFormatRaised(data.price);
   const { formatNumber: formatRetailPrice } = useFormatRaised(data.retailPrice);
   const date = data.monthYearShip;
-  const formatDate = moment(date).format("MM/YYYY");
+  // const formatDate = moment(date).format("MM/YYYY");
   const [showButton, setShowButton] = useState(false);
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const CampaignPerk = ({ data, campaignData }) => {
               <p className="text-text1 dark:text-text4 text-base font-medium">
                 Dự tính vận chuyển
               </p>
-              <p className="text-text2 text-sm dark:text-white">{formatDate}</p>
+              <p className="text-text2 text-sm dark:text-white">{date}</p>
             </div>
             <div>
               <span className="text-text2 text-sm dark:text-text4">

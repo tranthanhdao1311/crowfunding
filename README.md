@@ -7,8 +7,9 @@
 
 <!--  -->
 
-1. Fix scroll top // OK
+<!-- 1. Fix scroll top // OK -->
+
 2. Reponsive payment, loading btn, header sticky,
-3. Thêm modal thông báo thanh toán thành công
-4. Thêm dữ liệu (Crowfunding, MonkeyBlogging)
-5. Chức năng search MonkeyBlogging
+<!-- 3. Thêm modal thông báo thanh toán thành công -->
+3. Thêm dữ liệu (Crowfunding, MonkeyBlogging)
+4. Chức năng search MonkeyBlogging
