@@ -62,7 +62,7 @@ const ContributionSummury = ({
               <span>Phí vận chuyển</span>
               <p>Miễn phí</p>
             </div>
-            <div className="flex items-center justify-between text-base font-bold uppercase pb-6 lg:border border-x-0 border-t-0 border-[#ccc] ">
+            <div className="flex items-center justify-between text-base font-bold uppercase pb-6 border border-x-0 border-t-0 border-[#ccc] ">
               <span>Tổng tiền</span>
               <span>{formatNumber}</span>
             </div>
