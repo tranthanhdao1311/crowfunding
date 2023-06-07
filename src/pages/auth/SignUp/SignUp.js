@@ -17,6 +17,8 @@ import ButtonGoogle from "../../../components/Button/ButtonGoogle";
 import { useDispatch } from "react-redux";
 import { authRegister } from "../../../store/auth/auth-slice";
 import ImageUpload from "../../../components/Image/ImageUpload";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const schema = yup.object().shape({
   name: yup.string().required("Vui lòng nhập tên của bạn"),
@@ -59,6 +61,7 @@ const SignUp = () => {
     const totalValue = { ...values, avtUser };
     dispatch(authRegister(totalValue));
     reset({});
+    setAvtUser("");
   };
   const handleSetValueImg = (name, value) => {
     setAvtUser(value);
@@ -140,8 +143,20 @@ const SignUp = () => {
             </Link>
           </p>
         </Checkbox>
-        <Button type="submit" className="bg-primaryColor w-full lg:mt-3 mt-4">
-          Tạo tài khoản
+        <Button
+          type="submit"
+          className={`${
+            isSubmitting ? "pointer-events-none opacity-50" : ""
+          } bg-primaryColor w-full lg:mt-3 mt-4  `}
+        >
+          {isSubmitting ? (
+            <FontAwesomeIcon
+              className="animate-spin"
+              icon={faSpinner}
+            ></FontAwesomeIcon>
+          ) : (
+            "Tạo tài khoản"
+          )}
         </Button>
       </form>
     </>

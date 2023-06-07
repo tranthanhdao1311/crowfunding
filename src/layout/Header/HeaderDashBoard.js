@@ -18,7 +18,7 @@ const HeaderDashBoard = () => {
   };
 
   return (
-    <div className="flex justify-between items-center h-[40px] md:h-[52px] gap-x-6 mb-8 px-3 relative">
+    <div className="flex justify-between items-center   gap-x-6 px-3 sticky pt-6 pb-5 top-0 right-0 left-0 z-40 bg-white dark:bg-darkBg">
       <div className=" flex gap-x-6 justify-between items-center ">
         {toggleSideBar ? (
           <Link

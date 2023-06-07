@@ -11,7 +11,7 @@ const LayoutDashboard = React.memo(({ children }) => {
     <div
       className={` ${
         dark ? "dark" : "light"
-      } relative w-full max-w-[1600px] min-h-[100vh] my-0 mx-auto p-10 bg-liteBg `}
+      } relative w-full max-w-[1600px] min-h-[100vh] my-0 mx-auto p-10 pt-0 bg-liteBg `}
     >
       <HeaderDashBoard></HeaderDashBoard>
       <div className=" relative flex gap-x-10">

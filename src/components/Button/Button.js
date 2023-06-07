@@ -13,11 +13,9 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`${className} ${
-        !!loading ? "opacity-50 pointer-events-none" : ""
-      } h-[52px]  text-white font-semibold py-3 rounded-xl`}
+      className={`${className}  h-[52px]  text-white font-semibold py-3 rounded-xl`}
     >
-      {child}
+      {children}
     </button>
   );
 };

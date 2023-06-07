@@ -14,6 +14,8 @@ import InputTogglePassword from "../../../components/InputTogglePassword";
 import ButtonGoogle from "../../../components/Button/ButtonGoogle";
 import { useDispatch } from "react-redux";
 import { authLogin } from "../../../store/auth/auth-slice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const schema = yup.object().shape({
   email: yup
@@ -29,7 +31,7 @@ const SignIn = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: "onSubmit",
     defaultValues: {},
@@ -83,8 +85,20 @@ const SignIn = () => {
           Quên mật khẩu?
         </Link>
 
-        <Button type="submit" className="bg-primaryColor w-full lg:mt-3 mt-4">
-          Đăng nhập
+        <Button
+          type="submit"
+          className={`${
+            isSubmitting ? " pointer-events-none opacity-50" : ""
+          } bg-primaryColor w-full lg:mt-3 mt-4`}
+        >
+          {isSubmitting ? (
+            <FontAwesomeIcon
+              className="animate-spin "
+              icon={faSpinner}
+            ></FontAwesomeIcon>
+          ) : (
+            "Đăng nhập"
+          )}
         </Button>
       </form>
     </div>

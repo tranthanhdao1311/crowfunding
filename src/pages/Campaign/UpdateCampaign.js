@@ -319,7 +319,7 @@ const UpdateCampaign = () => {
           <Button
             className={`${
               isSubmitting ? "pointer-events-none opacity-50" : ""
-            } bg-secondaryColor text-sm md:text-base px-9 mt-6  `}
+            } bg-secondaryColor text-sm md:text-base w-[200px] mt-6  `}
             type="submit"
           >
             {isSubmitting ? (
