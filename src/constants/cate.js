@@ -16,7 +16,7 @@ const optionCate = [
   },
   {
     id: 4,
-    name: "Web Series & TV Shows",
+    name: "Giáo dục",
   },
   {
     id: 5,
