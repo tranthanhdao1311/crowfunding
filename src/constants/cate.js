@@ -22,5 +22,9 @@ const optionCate = [
     id: 5,
     name: "Môi trường",
   },
+  {
+    id: 6,
+    name: "Công nghệ",
+  },
 ];
 export { optionCate };
