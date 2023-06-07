@@ -4,7 +4,7 @@ import FieldRowInput from "../../components/FieldRowInput";
 import Label from "../../components/Label";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../constants/api";
 import Heading from "../../components/common/Heading";
@@ -77,6 +77,7 @@ const AddPerkCampaign = () => {
     resolver: yupResolver(schema),
   });
   const { dark } = useSelector((state) => state.darkMode);
+  const navigate = useNavigate();
   // select date
   const [selectedDate, setSelectedDate] = useState("");
   const [formatDate, setFormatDate] = useState("");
@@ -139,6 +140,7 @@ const AddPerkCampaign = () => {
       toast.success("Thêm đặc quyền thành công!");
       reset({});
       setValue("image", "");
+      navigate("/campaign");
     } catch (error) {
       toast.error(error.message);
     }

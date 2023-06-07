@@ -81,7 +81,7 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
           <div className="w-full h-[330px] sm:max-w-[583px] ">
             <Link to={`/campaign/${data?.title}`}>
               <img
-                className="w-full h-full rounded-3xl object-cover"
+                className="w-full h-full rounded-3xl object-top"
                 srcSet={data?.imageCampaign}
                 alt={data?.imageCampaign}
               />
