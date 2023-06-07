@@ -8,7 +8,6 @@
 <!--  -->
 
 <!-- 1. Fix scroll top // OK -->
-
 <!-- 2. Reponsive payment, loading btn, header sticky, -->
 <!-- 3. Thêm modal thông báo thanh toán thành công -->
 
