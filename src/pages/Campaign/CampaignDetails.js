@@ -211,12 +211,12 @@ const CampaignDetails = () => {
               thumbs={{ swiper: thumbsSwiper }}
             >
               <div className="w-full h-[398px] object-cover rounded-3xl">
-                {detailPost.video && (
+                {detailPost?.video && (
                   <SwiperSlide>
                     <iframe
                       width="100%"
                       height="398px"
-                      src={detailPost.video}
+                      src={detailPost?.video}
                       title="HUMANKINDNESS FILM INDIEGOGO VIDEO & TEASER TRAILE R"
                       frameBorder={0}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

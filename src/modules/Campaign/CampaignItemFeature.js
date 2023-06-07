@@ -79,11 +79,13 @@ const CampainItemFeature = ({ data, onDeletePost }) => {
       <div className="flex-1">
         <div className="w-full flex flex-col  gap-y-4 lg:flex-row lg:items-center lg:gap-x-7 mb-[40px]">
           <div className="w-full h-[330px] sm:max-w-[583px] ">
-            <img
-              className="w-full h-full rounded-3xl object-cover"
-              srcSet={data?.imageCampaign}
-              alt={data?.imageCampaign}
-            />
+            <Link to={`/campaign/${data?.title}`}>
+              <img
+                className="w-full h-full rounded-3xl object-cover"
+                srcSet={data?.imageCampaign}
+                alt={data?.imageCampaign}
+              />
+            </Link>
           </div>
           <div className="w-full sm:w-[435px] flex flex-col gap-y-3">
             <div className="flex justify-between gap-x-3">

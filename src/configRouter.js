@@ -1,11 +1,11 @@
 import { lazy } from "react";
 import LayoutDashboard from "./layout/DefaultLayout/LayoutDashboard";
 import DefaultLayoutAuth from "./layout/DefaultLayout/DefaultLayoutAuth";
-import PaymentCampaign from "./pages/Payment/PaymentCampaign";
 import { useLocation } from "react-router-dom";
-import PaymentEnd from "./pages/Payment/PaymentEnd";
 
 const SignIn = lazy(() => import("./pages/auth/SignIn/SignIn"));
+const PaymentEnd = lazy(() => import("./pages/Payment/PaymentEnd"));
+const PaymentCampaign = lazy(() => import("./pages/Payment/PaymentCampaign"));
 const AddPerkCampaign = lazy(() => import("./pages/Campaign/AddPerkCampaign"));
 const UpdateCampaign = lazy(() => import("./pages/Campaign/UpdateCampaign"));
 const Category = lazy(() => import("./pages/Category/Category"));
