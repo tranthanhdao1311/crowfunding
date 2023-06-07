@@ -38,7 +38,7 @@ const CampaignItem = ({ data }) => {
   return (
     <div
       onClick={handCountClick}
-      className="w-full min-h-[410px] flex flex-col gap-y-4 rounded-2xl bg-white dark:bg-darkSecondary shadow dark:shadow-none"
+      className="w-full min-h-[470px] flex flex-col gap-y-4 rounded-2xl bg-white dark:bg-darkSecondary shadow dark:shadow-none"
     >
       <div className="w-full h-full xl:max-w-[309px] xl:h-[158px]">
         <Link to={`/campaign/${data.title}`}>
