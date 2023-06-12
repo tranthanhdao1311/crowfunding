@@ -86,7 +86,7 @@ const CampaignItem = ({ data }) => {
               {data.desc}
             </CampaignDesc>
           </div>
-          <div className="flex gap-x-12">
+          <div className="flex justify-between">
             <div>
               <p className="text-text2 dark:text-white text-sm font-semibold leading-6">
                 {formatCurrentRaised}
