@@ -102,7 +102,7 @@ const DashboardSearch = ({ placeholder = "", type, name }) => {
           <div
             className={`${
               dark ? "dark" : ""
-            } lg:w-[843px] w-[458px] max-h-[600px] transition-all  bg-white dark:bg-darkStroke flex flex-col overflow-hidden gap-y-5 mt-2  pb-6   rounded-2xl   z-40 cursor-pointer  `}
+            } lg:w-[843px] w-[458px] max-h-[600px] transition-all  bg-white dark:bg-darkStroke flex flex-col overflow-hidden gap-y-5 mt-2  pb-6   rounded-2xl   cursor-pointer  `}
             tabIndex="-1"
             {...attrs}
           >

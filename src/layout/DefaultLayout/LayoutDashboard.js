@@ -21,7 +21,7 @@ const LayoutDashboard = React.memo(({ children }) => {
       <div
         className={`${
           showResult
-            ? "w-full h-full absolute top-0 left-0 bg-text1 opacity-60 z-40 "
+            ? "w-full h-full absolute top-0 left-0 bg-text1 opacity-60 z-[1000] "
             : ""
         }  transition-all`}
       ></div>

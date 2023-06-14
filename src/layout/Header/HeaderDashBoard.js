@@ -18,7 +18,7 @@ const HeaderDashBoard = () => {
   };
 
   return (
-    <div className="flex justify-between items-center   gap-x-6 px-3 sticky pt-6 pb-5 top-0 right-0 left-0 z-40 bg-white dark:bg-darkBg">
+    <div className="flex justify-between items-center gap-x-6 px-3  pt-6 pb-5 top-0 right-0 left-0  bg-white dark:bg-darkBg  ">
       <div className=" flex gap-x-6 justify-between items-center ">
         {toggleSideBar ? (
           <Link
@@ -63,7 +63,7 @@ const HeaderDashBoard = () => {
             </Button>
           </Link>
         ) : (
-          <div className="w-[190px] md:w-[450px] z-50">
+          <div className="w-[190px] md:w-[450px] z-[99999]">
             <DashboardSearch
               type="text"
               name="search"
@@ -73,7 +73,7 @@ const HeaderDashBoard = () => {
         )}
 
         {toggleSideBar && (
-          <div className="w-[190px] md:w-[450px] z-50 hidden md:block">
+          <div className="w-[190px] md:w-[450px]   hidden md:block">
             <DashboardSearch
               type="text"
               name="search"
