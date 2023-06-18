@@ -187,7 +187,7 @@ const SideBar = React.memo(() => {
             </svg>
             <span className="block md:hidden">WithDraw</span>
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/profileSetting"
             className={active}
             onClick={() => dispatch(setToggleSideBar(false))}
@@ -222,7 +222,7 @@ const SideBar = React.memo(() => {
               />
             </svg>
             <span className="block md:hidden">Profile</span>
-          </NavLink>
+          </NavLink> */}
           {user && (
             <div
               onClick={() => handleLogout()}

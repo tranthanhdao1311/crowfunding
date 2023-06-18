@@ -100,13 +100,13 @@ const CampaignDetails = () => {
           overlayClassName="fixed inset-0 bg-black bg-opacity-30 z-[60] flex items-center justify-center"
           className={`${
             dark ? "dark" : ""
-          } bg-white dark:bg-darkBg px-10 py-10 outline-none w-[521px] max-h-[90vh] rounded-lg overflow-y-auto  `}
+          } bg-white dark:bg-darkBg px-10 pb-10 outline-none w-[521px] max-h-[90vh] rounded-lg overflow-y-auto  `}
         >
           <div className="relative">
             <div className="text-right  sticky top-0 ">
               <FontAwesomeIcon
                 onClick={() => handleCloseModal()}
-                className="text-text3 text-3xl  cursor-pointer"
+                className="text-text3 text-3xl  cursor-pointer bg-white pt-10"
                 icon={faClose}
               ></FontAwesomeIcon>
             </div>
@@ -387,7 +387,7 @@ const CampaignDetails = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-[1170px] ">
+      <div className="max-w-[1170px]  ">
         <div className="border-y-[1px] mt-24 ">
           <div className="flex justify-between py-5  items-center">
             <ul className="flex cursor-pointer gap-x-14 text-text3 text-sm">
@@ -401,16 +401,18 @@ const CampaignDetails = () => {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-x-32 mt-6 justify-between relative ">
+        <div className="flex flex-col lg:flex-row  gap-x-24 mt-6 justify-between  ">
           <div className="lg:w-[60%]">
-            <p>STORY</p>
+            <p className="text-text1 dark:text-white text-base font-semibold my-3  ">
+              STORY
+            </p>
             <div className="w-full dark:text-white">
               <div className="story-css-content">
                 {parse(detailPost.content || "")}
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-[40%] flex flex-col sticky top-0  ">
+          <div className="w-full lg:w-[40%] flex flex-col h-[1000px] sticky top-0 ">
             <p className="text-text1 dark:text-white text-base font-semibold my-3   ">
               Chọn một tùy chọn
             </p>
