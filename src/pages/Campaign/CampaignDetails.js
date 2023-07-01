@@ -387,7 +387,7 @@ const CampaignDetails = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-[1170px]  ">
+      <div className=" ">
         <div className="border-y-[1px] mt-24 ">
           <div className="flex justify-between py-5  items-center">
             <ul className="flex cursor-pointer gap-x-14 text-text3 text-sm">
